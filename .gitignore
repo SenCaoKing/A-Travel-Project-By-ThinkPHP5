@@ -7,3 +7,4 @@ thinkphp
 .env
 /application/database.php
 /db.sql
+/index.php
