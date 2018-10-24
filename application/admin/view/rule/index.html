@@ -83,9 +83,9 @@
         </dl>
         <dl id="menu-article">
             <dt><i class="Hui-iconfont"></i> 商品管理<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
-            <dd style="display:block">
+            <dd>
                 <ul>
-                    <li class="current"><a href="/admin/goods/goodslist" title="商品列表">商品列表</a></li>
+                    <li><a href="/admin/goods/goodslist" title="商品列表">商品列表</a></li>
                     <li><a href="/admin/goods/goodsguidelist" title="导游商品列表">导游商品列表</a></li>
                     <li><a href="/admin/goods/goodsreleaselist" title="发布商品列表">发布商品列表</a></li>
                 </ul>
@@ -117,9 +117,35 @@
         </dl>
         <dl id="menu-article">
             <dt><i class="Hui-iconfont"></i> 系统管理<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
-            <dd>
+            <dd style="display:block">
                 <ul>
                     <li><a href="/admin/system/base" title="系统设置">系统设置</a></li>
+                    <li class="current"><a href="/admin/rule/index" title="权限节点">权限节点</a></li>
+                    <li><a href="/admin/role/index" title="角色列表">角色列表</a></li>
+                    <li><a href="/admin/admin/index" title="管理员列表">管理员列表</a></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl id="menu-article">
+            <dt><i class="Hui-iconfont"></i> 小程序管理<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
+            <dd>
+                <ul>
+                    <li><a href="/admin/system/arealist" title="地区管理">地区管理</a></li>
+                    <li><a href="/admin/category/index" title="分类管理">分类管理</a></li>
+                    <li><a href="/admin/wechatgoods/index" title="旅游产品">旅游产品</a></li>
+                    <li><a href="/admin/wechatbanner/index" title="Banner列表">Banner列表</a></li>
+                    <li><a href="/admin/merchant/index" title="商家管理">商家管理</a></li>
+                    <li><a href="/admin/article/index" title="内容管理">内容管理</a></li>
+                    <li><a href="/admin/wechatorder/index" title="订单管理（小）">订单管理（小）</a></li>
+                    <li><a href="/admin/distributor/index" title="分销商管理">分销商管理</a></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl id="menu-article">
+            <dt><i class="Hui-iconfont"></i> 财务管理<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
+            <dd>
+                <ul>
+                    <li><a href="/admin/finance/index" title="分账管理">分账管理</a></li>
                 </ul>
             </dd>
         </dl>
@@ -131,70 +157,41 @@
     <nav class="breadcrumb">
         <i class="Hui-iconfont"></i>
         首页 <span class="c-gray en">&gt;</span>
-        商品管理<span class="c-gray en">&gt;</span>
-        商品列表		<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="/" title="刷新"><i class="Hui-iconfont"></i></a>
+        系统管理<span class="c-gray en">&gt;</span>
+        权限节点		<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="/" title="刷新"><i class="Hui-iconfont"></i></a>
     </nav>
 
     <div class="Hui-article">
 
-        <div class="page-container">
-            <form action="/admin/goods/goodslist.html" method="get">
-                <div class="text-c">
-                    上传时间：
-                    <input type="text" name="start_time" value="" onfocus="WdatePicker()" id="datemin" class="input-text Wdate" style="width:120px;">
-                    至
-                    <input type="text" name="end_time" value="" onfocus="WdatePicker()" id="datemax" class="input-text Wdate" style="width:120px;">
-                    <input type="text" class="input-text" style="width:250px" placeholder="输入商品名称" name="search_name" value="">
-                    <select class="select-box" style="width: 80px;padding: 5px 5px;" size="1" name="status">
-                        <option value="" selected="">状态</option>
-                        <option value="1">待审核</option>
-                        <option value="2">已通过</option>
-                        <option value="3">未通过</option>
-                    </select>
-                    <button type="submit" class="btn btn-success radius"><i class="Hui-iconfont"></i> 搜索</button>
-                </div>
-            </form>
-            <div class="cl pd-5 bg-1 bk-gray mt-20">
-                <span class="l"><a href="javascript:;" onclick="open_page('添加商品','<?php echo url('goods/goodsAdd'); ?>','1000')" class="btn btn-primary radius"><i class="Hui-iconfont"></i> 添加商品</a></span>
-                <span class="r mt-5">共有记录：<strong>6</strong> 条</span>
-            </div>
-            <table class="table table-border table-bordered table-bg mt-10">
-                <thead>
-                <tr class="text-c">
-                    <th width="40">ID</th>
-                    <th>商品名称</th>
-                    <th>Logo</th>
-                    <th>商品描述</th>
-                    <th>商品价格</th>
-                    <th>目的地</th>
-                    <th>须知</th>
-                    <th>地区编号</th>
-                    <th>地区名称</th>
-                    <th>状态</th>
-                    <th>上传时间</th>
-                    <th width="60">操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="text-c">
-                    <td>6</td>
-                    <td>333</td>
-                    <td><img class="avatar size-L" src="http://ly-goods-images.oss-cn-beijing.aliyuncs.com/2018-07-05/5b3dd93a6ef2b-07-05-16-39-22.png"></td>
-                    <td>333</td>
-                    <td>333</td>
-                    <td>3333</td>
-                    <td>333</td>
-                    <td>333</td>
-                    <td>3333</td>
-                    <td>已通过</td>
-                    <td>2018-07-05 16:39:23</td>
-                    <td>
-                        <input class="btn btn-success radius size-MINI" type="button" onclick="open_page('商品详情','/admin/goods/goodsshow/id/6/action/goodslist.html')" value="详情">
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <span class="r pages mt-10"><ul class="pagination"><li class="disabled"><span>«</span></li> <li class="active"><span>1</span></li><li><a href="/admin/goods/goodslist?page=2">2</a></li><li><a href="/admin/goods/goodslist?page=3">3</a></li><li><a href="/admin/goods/goodslist?page=4">4</a></li><li><a href="/admin/goods/goodslist?page=5">5</a></li><li><a href="/admin/goods/goodslist?page=6">6</a></li> <li><a href="/admin/goods/goodslist?page=2">»</a></li></ul></span>
+        <div class="Hui-article">
+            <article class="cl pd-20">
+                <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
+			<a href="{:url('rule/addRule')}" class="btn btn-primary radius"><i class="Hui-iconfont"></i> 添加权限节点</a></span> <span class="r">共有数据：<strong>70</strong> 条</span> </div>
+                <table class="table table-border table-bordered table-bg mt-10">
+                    <thead>
+                    <tr class="text-c">
+                        <th width="40">ID</th>
+                        <th>权限名称</th>
+                        <th>权限路由</th>
+                        <th width="100">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="text-c top_0">
+
+                        <td>1</td>
+                        <td class="operate" style="text-align: left; padding-left: 10px">
+                            <a onclick="hide1(this,1)"><span><i class="Hui-iconfont"> </i></span></a>用户管理			</td>
+                        <td></td>
+                        <td>
+                            <input class="btn btn-success radius size-MINI" type="button" onclick="open_page('编辑','/admin/rule/addrule/id/1.html','','400')" value="编辑">
+                            <input class="btn btn-danger radius size-MINI ml-5" type="button" onclick="del(this,1)" value="删除">
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </article>
         </div>
 
     </div>
@@ -208,10 +205,5 @@
 <script type="text/javascript" src="/public/static/h-ui/js/H-ui.js"></script>
 <script type="text/javascript" src="/public/static/h-ui/js/main.js"></script>
 <script type="text/javascript" src="/public/static/h-ui.admin/js/H-ui.admin.page.js"></script>
-
-<script type="text/javascript">
-
-</script>
-
 
 </body></html>

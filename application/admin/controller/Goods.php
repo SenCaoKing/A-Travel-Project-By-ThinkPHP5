@@ -11,4 +11,9 @@ class Goods extends Controller
 
         return view('goodslist');
     }
+
+    public function goodsAdd(){
+
+        return view('goodsAdd');
+    }
 }

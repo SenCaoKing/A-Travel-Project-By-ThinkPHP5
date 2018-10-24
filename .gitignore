@@ -6,5 +6,5 @@ thinkphp
 /runtime
 .env
 /application/database.php
-/db.sql
+/sen_lvyou.sql
 /index.php
