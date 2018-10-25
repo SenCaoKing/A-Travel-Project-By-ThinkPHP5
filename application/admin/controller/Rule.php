@@ -54,6 +54,23 @@ class Rule extends Base {
         ]);
     }
 
-
-
+    /**
+     * @return \think\response\Json
+     * 删除权限节点
+     */
+    public function del()
+    {
+        if(Request::instance()->isPost()){
+            $id = Request::instance()->post('id');
+            $child = $this->auth_rule->where(['p_id' => $id])->find();
+            if($child){
+                return _error('还有子栏目没有被删除');
+            }
+            $res = $this->auth_rule->where(['id' => $id])->delete();
+            if($res){
+                return _success();
+            }
+            return _error('操作失败');
+        }
+    }
 }

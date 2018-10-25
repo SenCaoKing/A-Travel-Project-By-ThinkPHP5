@@ -19,12 +19,12 @@
 
                 <td><?php echo $v['id']?></td>
                 <td class="operate" style="text-align: left; padding-left: 10px">
-                    <?php if(empty($v['deep'])){ echo empty($v['p_id']) ? '<a onclick=""><span><i class="Hui-iconfont">&#xe6a1; </i></span></a>' : '-';echo $v['title'];} else echo str_repeat('&nbsp', $v['deep']*4).'-'.$v['title'];?>
+                    <?php if(empty($v['deep'])){ echo empty($v['p_id']) ? '<a onclick="hide1(this, '.$v['id'].')"><span><i class="Hui-iconfont">&#xe6a1; </i></span></a>' : '-';echo $v['title'];} else echo str_repeat('&nbsp', $v['deep']*4).'-'.$v['title'];?>
                 </td>
                 <td><?php echo $v['name']?></td>
                 <td>
-                    <input class="btn btn-success radius size-MINI" type="button" onclick="" value="编辑">
-                    <input class="btn btn-danger radius size-MINI ml-5" type="button" onclick="" value="删除">
+                    <input class="btn btn-success radius size-MINI" type="button" onclick="" href="{:url('rule/addRule', ['id'=>$v['id']])}" value="编辑">
+                    <input class="btn btn-danger radius size-MINI ml-5" type="button" onclick="del(this, <?php echo $v['id']?>)" value="删除">
                 </td>
             </tr>
             <?php } if(empty($list)){ ?>
@@ -37,6 +37,51 @@
 {/block}
 {block name="js"}
 <script type="text/javascript">
+    /*管理员-权限-添加*/
+    function admin_permission_add(title, url, w, h){
+        layer_show(title, url, w, h);
+    }
 
+    function admin_permission_edit(title, url, w, h){
+        layer_show(title, url, w, h);
+    }
+
+    function display1(obj, id){
+        $(".top_"+id).show();
+        $(obj).parents("tr").find(".operate").prepend('<a onclick="hide1(this, '+id+')"><span><i class="Hui-iconfont">&#xe6a1; </i> </span></a>');
+        $(obj).remove();
+    }
+
+    function hide1(obj, id){
+        $(".top_"+id).hide();
+        $(obj).parents("tr").find(".operate").prepend('<a onclick="display1(this, '+id+')"><span><i class="Hui-iconfont">&#xe600; </i> </span></a>');
+        $(obj).remove();
+    }
+
+
+    function admin_permission_del(obj, id){
+        layer.confirm('确认要删除吗？', function(index){
+            $(obj).parents("tr").remove();
+            layer.msg('已删除！', {icon:1, time:1000});
+        });
+    }
+
+    function del(obj, id){
+        layer.confirm('确认要删除吗？', function(index){
+            $.ajax({
+                type: 'post',
+                url: "<?php echo url('rule/del')?>",
+                data: {"id":id},
+                success: function(data){
+                    if(data.code == 0){
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除！', {icon:1, time:1000});
+                    }else{
+                        layer.msg(data.msg, {icon:5, time:1000});
+                    }
+                }
+            });
+        });
+    }
 </script>
 {/block}
