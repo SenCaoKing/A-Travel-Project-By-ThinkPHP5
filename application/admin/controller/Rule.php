@@ -42,9 +42,18 @@ class Rule extends Base {
         ]);
     }
 
+
+    /**
+     * @return mixed
+     */
     public function index()
     {
-        dump(123);
-        return view('index');
+        $list = $this->auth_rule->select();
+        return $this->fetch('index', [
+            'list' => rule_infinite($list, 0, 0)
+        ]);
     }
+
+
+
 }

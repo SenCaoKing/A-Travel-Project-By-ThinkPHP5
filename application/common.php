@@ -36,3 +36,21 @@ function _error($message = '操作失败', $code = -1, $data = []){
         'data' => $data
     ]);
 }
+
+/**
+ * @param array $list
+ * @param int $parent_id
+ * @param int $deep
+ * @return array|void
+ */
+function rule_infinite($list = [], $parent_id = 0, $deep = 0){
+    static $arr = [];
+    foreach($list as $v){
+        if($v['p_id'] == $parent_id){
+            $v['deep'] = $deep;
+            $arr[] = $v;
+            rule_infinite($list, $v['id'], $deep + 1);
+        }
+    }
+    return $arr;
+}
