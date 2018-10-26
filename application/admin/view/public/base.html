@@ -77,19 +77,19 @@
 
 <aside class="Hui-aside">
     <div class="menu_dropdown bk_2">
+        <?php foreach($button as $k => $v){?>
         <dl id="menu-article">
-            <dt><i class="Hui-iconfont"></i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
-            <dd>
+            <dt><i class="Hui-iconfont">&<?php echo $v['icon']?>;</i> <?php echo $v['title']?><i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd <?php if($parent_title == $v['title']) echo 'style="display:block"';?>>
                 <ul>
-                    <li><a href="/admin/user/guidelist" title="导游列表">导游列表</a></li>
+                    <?php foreach($v['child'] as $k1 => $v1){?>
+                        <li <?php if($v1['name'] == $rule) echo 'class="current"'?>><a href="<?php echo $v1['name']?>" title="<?php echo $v1['title'];?>"><?php echo $v1['title'];?></a></li>
+                    <?php } ?>
                 </ul>
             </dd>
         </dl>
+        <?php } ?>
     </div>
-
-
-
-
 </aside>
 <div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onclick="displaynavbar(this)"></a></div>
 

@@ -23,7 +23,8 @@
                 </td>
                 <td><?php echo $v['name']?></td>
                 <td>
-                    <input class="btn btn-success radius size-MINI" type="button" onclick="" href="{:url('rule/addRule', ['id'=>$v['id']])}" value="编辑">
+                    <a href="{:url('rule/addRule', ['id'=>$v['id']])}" class="btn btn-success radius">编辑</a>
+                    <!--<input class="btn btn-success radius size-MINI" type="button" href="{:url('rule/addRule', ['id'=>$v['id']])}" value="编辑">-->
                     <input class="btn btn-danger radius size-MINI ml-5" type="button" onclick="del(this, <?php echo $v['id']?>)" value="删除">
                 </td>
             </tr>
@@ -60,7 +61,7 @@
 
 
     function admin_permission_del(obj, id){
-        layer.confirm('确认要删除吗？', function(index){
+        layer.confirm('角色删除需谨慎，确认要删除吗？', function(index){
             $(obj).parents("tr").remove();
             layer.msg('已删除！', {icon:1, time:1000});
         });
