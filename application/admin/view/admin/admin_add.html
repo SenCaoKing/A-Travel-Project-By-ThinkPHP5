@@ -40,6 +40,40 @@
 {/block}
 {block name="js"}
 <script type="text/javascript">
+    $(function(){
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
 
+        $("#form-admin-add").validate({
+            rules:{
+                adminName:{
+                    required:true,
+                    minlength:4,
+                    maxlength:16
+                },
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid",
+            submitHandler:function(form){
+                var options = {
+                    success: function(data){
+                        if(data.code == 0){
+                            layer.msg(data.msg, {icon:1, time:1000});
+                            setTimeout(function(){
+                                window.parent.location.reload();
+                            }, 1000);
+                        }else{
+                            layer.msg(data.msg, {icon:5, time:1000});
+                        }
+                    }
+                };
+                $(form).ajaxSubmit(options);
+            }
+        });
+    });
 </script>
 {/block}

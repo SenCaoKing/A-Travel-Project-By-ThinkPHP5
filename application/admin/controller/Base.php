@@ -17,9 +17,10 @@ class Base extends Menu {
     protected $menu;
 
     public function __construct(){
-        dump(123);
+
 
         parent::__construct();
+        dump(123);
 
         $this->menu = $this->get_menu();
         $rule = '/'.Request::instance()->module().'/'.Request::instance()->controller().'/'.Request::instance()->action();
