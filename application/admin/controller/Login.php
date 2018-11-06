@@ -6,12 +6,12 @@
  * Time: 21:00
  */
 namespace app\admin\controller;
+use app\server\Ip;
 use think\Controller;
 use app\server\Param;
 
 class Login extends Base {
     protected $params;
-
 
 
     /**
@@ -41,7 +41,7 @@ class Login extends Base {
                 if(!$bool){ // 验证密码
                     throw new \LogicException('用户名或密码错误', 1000);
                 }
-
+                self::afterLogin($info); // 登陆后置操作
             } catch(\Exception $e){
                 return _error($e->getMessage(), $e->getCode());
             }
@@ -50,5 +50,25 @@ class Login extends Base {
         return view('login');
     }
 
+    /**
+     * 退出登陆
+     */
+    public function logout(){
+        cookie('login', null);
+        self::redirect('login/login');
+    }
 
+    /**
+     * 登录后置操作
+     * @param $info
+     */
+    protected function afterLogin($info){
+        // 更新用户登陆信息
+        $save['id'] = $info['id'];
+        $save['last_login_time'] = time();
+        $save['last_login_ip'] = Ip::get_client_ip();
+        $this->admin->update($save);
+        cookie('login', null); // 记录cookie
+        empty($this->params['remember']) ? cookie('login', $info['id'], 3600) : cookie('login', $info['id'], 3600 * 24 * 7);
+    }
 }
