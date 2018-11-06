@@ -22,8 +22,6 @@ class Admin extends Base {
         if(Request::instance()->isPost()){
             try{
                 $data = Request::instance()->post();
-                dump($data);
-
                 $data['last_login_time'] = time();
                 $data['last_login_ip']   = \app\server\Ip::get_client_ip();
                 $data['create_time']     = time();
@@ -31,8 +29,9 @@ class Admin extends Base {
                 $data['password']        = password_hash($data['password'], true);
                 if(empty($data['password'])){
                     unset($data['password']);
-                    unset($data['password2']);
+                    // unset($data['password2']);
                 }
+                unset($data['password2']); // 销毁password2
                 $this->admin->startTrans();
                 if($data['id']){
                     $this->admin->update($data);

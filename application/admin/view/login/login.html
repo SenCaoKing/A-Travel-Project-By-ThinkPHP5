@@ -77,6 +77,27 @@
 <script type="text/javascript" src="__STATIC__/h-ui/js/H-ui.js"></script>
 <script type="text/javascript" src="__STATIC__/h-ui.admin/js/H-ui.admin.page.js"></script>
 <script type="text/javascript">
+    $(function(){
+        $("#form-login").validate({
+            rules:{
+                username:{required:true},
+                password:{required:true}
+            },
+            submitHandler:function(form){
+                var options = {
+                    success: function(data){
+                        if(data.code == 0){
+
+                            console.log(data);
+                        }else{
+                            console.log(data);
+                        }
+                    }
+                };
+                $(form).ajaxSubmit(options);
+            }
+        });
+    });
 
 </script>
 </body>
