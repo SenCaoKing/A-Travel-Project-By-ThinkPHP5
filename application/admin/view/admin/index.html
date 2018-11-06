@@ -5,7 +5,7 @@
         <div class="cl pd-5 bg-1 bk-gray mt-20">
             <span class="l">
                 <a href="{:url('admin/adminAdd')}" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>添加管理员</a> </span>
-            <span class="r">共有数据：<strong></strong> 条</span>
+            <span class="r">共有数据：<strong>{$list|count}</strong> 条</span>
         </div>
         <table class="table table-border table-bordered table-bg">
             <thead>
@@ -22,7 +22,20 @@
             </tr>
             </thead>
             <tbody>
+            <?php foreach($list as $k => $v){?>
+            <tr class="text-c">
+                <td><?php echo $v['id']?></td>
+                <td><?php echo $v['username']?></td>
+                <td></td>
+                <td><?php echo date('Y-m-d H:i:s', $v['create_time'])?></td>
+                <td></td>
+                <td class="td-manage">
+                    <input class="btn btn-success radius size-MINI" type="button" >
 
+
+                </td>
+            </tr>
+            <?php } ?>
             </tbody>
         </table>
     </article>
@@ -30,6 +43,8 @@
 {/block}
 {block name="js"}
 <script type="text/javascript">
-    
+
+
+
 </script>
 {/block}

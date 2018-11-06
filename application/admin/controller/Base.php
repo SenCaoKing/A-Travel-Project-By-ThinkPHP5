@@ -9,6 +9,11 @@ use think\Request;
 
 class Base extends Menu {
 
+    /**
+     * @var array
+     * 参数
+     */
+    protected $params;
 
     /**
      * @var array|false|\PDOStatement|string|\think\Collection
@@ -20,6 +25,9 @@ class Base extends Menu {
         parent::__construct();
         //dump(123);
         !defined('IS_POST') && define('IS_POST', $this->request->isPost()); // 定义是否POST请求
+
+        $this->params = Request::instance()->param();
+
 
         $this->menu = $this->get_menu();
         $rule = '/'.Request::instance()->module().'/'.Request::instance()->controller().'/'.Request::instance()->action();

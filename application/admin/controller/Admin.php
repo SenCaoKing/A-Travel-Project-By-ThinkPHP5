@@ -10,7 +10,18 @@ use think\Request;
 class Admin extends Base {
     public function index()
     {
-        return $this->fetch('index');
+        $list = $this->admin
+            ->field('id, username, create_time')
+            ->select();
+
+
+
+
+
+
+        return $this->fetch('index', [
+            'list' => $list
+        ]);
     }
 
     /**
