@@ -1,0 +1,94 @@
+﻿{extend name="public/main" /}
+{block name="main"}
+<form action="" method="post" class="form form-horizontal" id="form">
+    <div class="row cl">
+        <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>角色名称：</label>
+        <div class="formControls col-xs-8 col-sm-9">
+            <input type="text" class="input-text" value="" placeholder="请输入角色名称" id="title" name="title" datatype="*4-16" nullmsg="用户账户不能为空">
+        </div>
+    </div>
+    <div class="row cl">
+        <label class="form-label col-xs-4 col-sm-3">备注：</label>
+        <div class="formControls col-xs-8 col-sm-9">
+            <input type="text" class="input-text" value="" placeholder="请输入角色描述" id="" name="description">
+        </div>
+    </div>
+    <div class="row cl">
+        <label class="form-label col-xs-4 col-sm-3">权限选择：</label>
+        <div class="formControls col-xs-8 col-sm-9">
+            <?php foreach($menu as $key => $value){?>
+            <dl class="permission-list">
+                <dt>
+                    <label>
+                        <input type="checkbox" value="1" name="rules[]" id="user-Character-0">
+                        <?php echo $value['title']?></label>
+                </dt>
+                <dd>
+                    <?php foreach($value['child'] as $key1 => $value1){?>
+                    <dl class="cl permission-list2">
+                        <dt>
+                            <label class="">
+                                <input type="checkbox" value="4" name="rules[]" id="user-Character-0-0">
+                            <?php echo $value1['title']?></label>
+                        </dt>
+                        <dd>
+                            <?php foreach($value1['son'] as $key2 => $value2){?>
+                            <label class="">
+                                <input type="checkbox" value="47" name="rules[]" id="user-Character-0-0-0">
+                            <?php echo $value2['title']?></label>
+                            <?php } ?>
+
+                        </dd>
+                    </dl>
+                    <?php } ?>
+                </dd>
+            </dl>
+            <?php } ?>
+        </div>
+    </div>
+    <div class="row cl">
+        <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+            <input type="hidden" name="id" value="">
+            <button type="submit" class="btn btn-success radius" id="admin-role-save"><i class="icon-ok"></i>确定</button>
+        </div>
+    </div>
+</form>
+{/block}
+{block name="js"}
+<script type="text/javascript">
+    /*
+    $(function(){
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+        $("#form").validate({
+            rules:{
+                title:{
+                    required:true,
+                },
+                status:{
+                    required:true,
+                },
+            },
+            submitHandler:function(form){
+                var options = {
+                    success: function(data){
+                        if(data.code == 0){
+                            layer.msg(data.msg, {icon:1, time:1000});
+                            setTimeout(function(){
+                                window.parent.location.reload();
+                            }, 1000);
+                        }else{
+                            layer.msg(data.msg, {icon:5, time:1000});
+                        }
+                    }
+                };
+                $(form).ajaxSubmit(options);
+            }
+        });
+    });
+    */
+</script>
+{/block}
