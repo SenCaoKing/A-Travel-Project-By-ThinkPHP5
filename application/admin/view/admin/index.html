@@ -43,6 +43,26 @@
 {/block}
 {block name="js"}
 <script type="text/javascript">
+    /* 管理员-停用 */
+    function admin_stop(obj, id){
+        layer.confirm('确认要停用吗？', function(index){
 
+            $(obj).parents("tr").find(".td-status").prepend('<a onclick="admin_start(this, id)" href="javascript:;" title="启用" style="text-decoration: none"><i class="Hui-iconfont"></i></a>');
+            $(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">已禁用</span>');
+            $(obj).remove();
+            layer.msg('已停用！', {icon:5, time:1000});
+        });
+    }
+
+    /* 管理员-启用 */
+    function admin_start(obj, id){
+        layer.confirm('确认要启用吗？', function(index){
+
+            $(obj).parents("tr").find(".td-status").prepend('<a onclick="admin_stop(this, id)" href="javascript:;" title="停用" style="text-decoration: none;"><i class="Hui-iconfont"></i></a>');
+            $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
+            $(obj).remove();
+            layer.msg('已启用！', {icon:6, time:1000});
+        });
+    }
 </script>
 {/block}
