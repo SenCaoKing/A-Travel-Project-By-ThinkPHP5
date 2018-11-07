@@ -19,7 +19,20 @@ class Role extends Base {
      */
     public function addRole()
     {
-
+        if(Request::instance()->isPost()){
+            $data = Request::instance()->post();
+            $data['rules'] = implode(',', $data['rules']);
+            if($data['id']){
+                $res = $this->auth_group->update($data);
+            }else{
+                $res = $this->auth_group->insert($data);
+            }
+            if($res){
+                return _success();
+            }else{
+                return _error('数据库操作失败');
+            }
+        }
         // 获取顶级菜单
         $top_menu = $this->auth_rule->where(['p_id' => 0])->select();
         // 查询二级
