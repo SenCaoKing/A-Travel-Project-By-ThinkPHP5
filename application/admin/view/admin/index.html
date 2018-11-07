@@ -26,12 +26,12 @@
             <tr class="text-c">
                 <td><?php echo $v['id']?></td>
                 <td><?php echo $v['username']?></td>
-                <td></td>
+                <td><?php echo $v['title']?></td>
                 <td><?php echo date('Y-m-d H:i:s', $v['create_time'])?></td>
-                <td></td>
+                <td class="td-status"><span class="label label-success radius"><?php echo $v['status'] == 1 ? '正常' : '停用'?></span></td>
                 <td class="td-manage">
-                    <input class="btn btn-success radius size-MINI" type="button" >
-
+                    <a href="{:url('admin/adminAdd', ['id' => $v['id']])}" class="btn btn-success radius size-MINI" value="编辑"></a>
+                    <input class="btn btn-danger radius size-MINI ml-5" type="button" onclick="" value="删除">
 
                 </td>
             </tr>
@@ -43,8 +43,6 @@
 {/block}
 {block name="js"}
 <script type="text/javascript">
-
-
 
 </script>
 {/block}

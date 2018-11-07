@@ -11,14 +11,14 @@ class Admin extends Base {
     public function index()
     {
         $list = $this->admin
-            ->field('id, username, create_time')
+            ->alias('a')
+            ->join([
+                ['auth_group_access b', 'a.id = b.uid', 'left'],
+                ['auth_group c', 'b.group_id = c.id', 'left']
+            ])
+            ->field('a.id, a.status, a.username, a.create_time, c.title')
+            ->where('a.id > 1')
             ->select();
-
-
-
-
-
-
         return $this->fetch('index', [
             'list' => $list
         ]);
@@ -40,17 +40,28 @@ class Admin extends Base {
                 $data['password']        = password_hash($data['password'], true);
                 if(empty($data['password'])){
                     unset($data['password']);
-                    // unset($data['password2']);
                 }
                 unset($data['password2']); // 销毁password2
+                $group_id = $data['group_id'];
+                unset($data['group_id']); // 销毁多余字段
                 $this->admin->startTrans();
                 if($data['id']){
                     $this->admin->update($data);
-
+                    $data['group_id'] = $group_id;
+                    $this->auth_group_access
+                        ->where(['uid' => $data['id']])
+                        ->update([
+                            'group_id' => $data['group_id']
+                        ]);
                 }else{
                     $uid = $this->admin->insertGetId($data);
-
+                    $data['group_id'] = $group_id;
+                    $this->auth_group_access->insert([
+                        'uid'      => $uid,
+                        'group_id' => $data['group_id']
+                    ]);
                 }
+
             }catch(\Exception $e){
                 $this->admin->rollback();
                 return _error($e->getMessage());
@@ -59,6 +70,13 @@ class Admin extends Base {
             return _success();
         }
 
-        return $this->fetch('admin_add');
+
+        $role = $this->auth_group->select();
+        $id = Request::instance()->param('id');
+        $admin = $this->admin->where(['id' => $id])->find();
+        return $this->fetch('admin_add', [
+            'role' => $role,
+            'row'  => $admin
+        ]);
     }
 }

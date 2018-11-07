@@ -48,13 +48,27 @@ class Role extends Base {
             }
         }
 
-        dump($top_menu);
+
+        // dump($top_menu);
         return $this->fetch('add_role', [
             'menu' => $top_menu
         ]);
     }
 
-    public function index(){
+
+    /**
+     * @return mixed
+     * 获取管理员列表
+     */
+    public function index()
+    {
+        $list = $this->auth_group->select();
+        /*
+        foreach($list as $key => $value){
+            $list[$key]['group'] = $this->
+        }
+        */
+        dump($list);
 
         return $this->fetch('index');
     }

@@ -4,7 +4,7 @@
     <div class="row cl">
         <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名称：</label>
         <div class="formControls col-xs-8 col-sm-9">
-            <input type="text" class="input-text" value="" placeholder="" id="username" name="username">
+            <input type="text" class="input-text" value="<?php echo $row['username']?>" placeholder="" id="username" name="username">
         </div>
     </div>
     <div class="row cl">
@@ -19,17 +19,17 @@
             <input type="password" class="input-text" autocomplete="off" placeholder="确认新密码" id="password2" name="password2">
         </div>
     </div>
-    <!--<div class="row cl">
+    <div class="row cl">
         <label class="form-label col-xs-4 col-sm-3">角色：</label>
         <div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width: 150px;">
             <select class="select" name="group_id" size="1">
-
-                <option value=""></option>
-
+                <?php foreach($role as $key => $value){?>
+                <option value="<?php echo $value['id']?>"><?php echo $value['title']?></option>
+                <?php } ?>
             </select>
         </span>
         </div>
-    </div>-->
+    </div>
     <div class="row cl">
         <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
             <input type="hidden" name="id" value="">
