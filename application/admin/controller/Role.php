@@ -63,14 +63,17 @@ class Role extends Base {
     public function index()
     {
         $list = $this->auth_group->select();
-        /*
         foreach($list as $key => $value){
-            $list[$key]['group'] = $this->
+            $list[$key]['group'] = $this->auth_group_access
+                ->alias('a')
+                ->field('b.username')
+                ->join([['admin b', 'a.uid = b.id']])
+                ->where(['a.group_id' => $value['id']])
+                ->select();
         }
-        */
-        dump($list);
-
-        return $this->fetch('index');
+        return $this->fetch('index', [
+            'list' => $list
+        ]);
     }
 
 }

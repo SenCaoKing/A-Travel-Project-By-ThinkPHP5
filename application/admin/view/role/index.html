@@ -19,6 +19,25 @@
                 </tr>
                 </thead>
                 <tbody>
+                <?php foreach($list as $v){?>
+                <tr class="text-c">
+                    <td><?php echo $v['id']?></td>
+                    <td><?php echo $v['title']?></td>
+                    <td>
+                        <?php if(empty($v['group'])){?>
+                        --
+                        <?php } ?>
+                        <?php foreach($v['group'] as $v1){?>
+                        <a href="#"><?php echo $v1['username']?></a>
+                        <?php } ?>
+                    </td>
+                    <td><?php echo $v['description']?></td>
+                    <td class="f-16">
+                        <input class="btn btn-success radius size-MINI" type="button" onclick="" value="编辑">
+                        <input class="btn btn-danger radius size-MINI ml-5" type="button" onclick="" value="删除">
+                    </td>
+                </tr>
+                <?php } ?>
 
 
                 </tbody>

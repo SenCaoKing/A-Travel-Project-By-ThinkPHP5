@@ -3,7 +3,7 @@
 <div class="Hui-article">
     <article class="cl pd-20">
         <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
-            <a href="{:url('rule/addRule')}" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加权限节点</a></span> <span class="r">共有数据：<strong><?php echo count($list)?></strong> 条</span> </div>
+            <a href="{:url('rule/addRule')}" class="btn btn-primary radius"><i class="Hui-iconfont"></i> 添加权限节点</a></span> <span class="r">共有数据：<strong><?php echo count($list)?></strong> 条</span> </div>
         <table class="table table-border table-bordered table-bg mt-10">
             <thead>
             <tr class="text-c">
@@ -19,7 +19,7 @@
 
                 <td><?php echo $v['id']?></td>
                 <td class="operate" style="text-align: left; padding-left: 10px">
-                    <?php if(empty($v['deep'])){ echo empty($v['p_id']) ? '<a onclick="hide1(this, '.$v['id'].')"><span><i class="Hui-iconfont">&#xe6a1; </i></span></a>' : '-';echo $v['title'];} else echo str_repeat('&nbsp', $v['deep']*4).'-'.$v['title'];?>
+                    <?php if(empty($v['deep'])){ echo empty($v['p_id']) ? '<a onclick="hide1(this, '.$v['id'].')"><span><i class="Hui-iconfont"></i></span></a>' : '-';echo $v['title'];} else echo str_repeat('&nbsp', $v['deep']*4).'-'.$v['title'];?>
                 </td>
                 <td><?php echo $v['name']?></td>
                 <td>
@@ -49,13 +49,13 @@
 
     function display1(obj, id){
         $(".top_"+id).show();
-        $(obj).parents("tr").find(".operate").prepend('<a onclick="hide1(this, '+id+')"><span><i class="Hui-iconfont">&#xe6a1; </i> </span></a>');
+        $(obj).parents("tr").find(".operate").prepend('<a onclick="hide1(this, '+id+')"><span><i class="Hui-iconfont"></i> </span></a>');
         $(obj).remove();
     }
 
     function hide1(obj, id){
         $(".top_"+id).hide();
-        $(obj).parents("tr").find(".operate").prepend('<a onclick="display1(this, '+id+')"><span><i class="Hui-iconfont">&#xe600; </i> </span></a>');
+        $(obj).parents("tr").find(".operate").prepend('<a onclick="display1(this, '+id+')"><span><i class="Hui-iconfont"></i> </span></a>');
         $(obj).remove();
     }
 
