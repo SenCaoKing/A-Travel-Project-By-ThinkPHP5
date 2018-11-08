@@ -34,22 +34,39 @@
                     <td><?php echo $v['description']?></td>
                     <td class="f-16">
                         <input class="btn btn-success radius size-MINI" type="button" onclick="" value="编辑">
-                        <input class="btn btn-danger radius size-MINI ml-5" type="button" onclick="" value="删除">
+                        <input class="btn btn-danger radius size-MINI ml-5" type="button" onclick="del(this, <?php echo $v['id']?>)" value="删除">
+
                     </td>
                 </tr>
                 <?php } ?>
-
-
                 </tbody>
             </table>
         </div>
-
-
-
     </article>
 </div>
 {/block}
 {block name="js"}
 <script type="text/javascript">
+
+
+
+    
+    function del(obj, id){
+        layer.confirm('确认要删除吗？', function(index){
+            $.ajax({
+                type: 'post',
+                url: "<?php echo url('role/del')?>",
+                data: {"id":id},
+                success: function(data){
+                    if(data.code == 0){
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除！', {icon:1, time:1000});
+                    }else{
+                        layer.msg(data.msg, {icon:5, time:1000});
+                    }
+                }
+            });
+        });
+    }
 </script>
 {/block}

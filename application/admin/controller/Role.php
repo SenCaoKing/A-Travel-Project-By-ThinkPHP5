@@ -76,4 +76,24 @@ class Role extends Base {
         ]);
     }
 
+    /**
+     * @return \think\response\Json
+     * 删除角色
+     */
+    public function del()
+    {
+        if(Request::instance()->isPost()){
+            $id = Request::instance()->post('id');
+            // 角色是否有管理员
+            $group = $this->auth_group_access->where(['group_id' => $id])->find();
+            if($group){
+                return _error('请先删除该角色的管理员');
+            }
+            $res = $this->auth_group->where(['id'=> $id])->delete();
+            if($res){
+                return _success();
+            }
+            return _error('操作失败');
+        }
+    }
 }
