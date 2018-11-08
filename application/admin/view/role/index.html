@@ -33,7 +33,7 @@
                     </td>
                     <td><?php echo $v['description']?></td>
                     <td class="f-16">
-                        <input class="btn btn-success radius size-MINI" type="button" onclick="" value="编辑">
+                        <input class="btn btn-success radius size-MINI" type="button" onclick="open_page()" value="编辑">
                         <input class="btn btn-danger radius size-MINI ml-5" type="button" onclick="del(this, <?php echo $v['id']?>)" value="删除">
 
                     </td>
@@ -47,10 +47,11 @@
 {/block}
 {block name="js"}
 <script type="text/javascript">
+    /* 管理员-角色-添加 */
+    function admin_role_add(title, url, w, h){
+        layer_show(title, url, w, h);
+    }
 
-
-
-    
     function del(obj, id){
         layer.confirm('确认要删除吗？', function(index){
             $.ajax({
