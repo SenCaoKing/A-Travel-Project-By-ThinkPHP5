@@ -35,18 +35,31 @@ class Menu extends Controller {
      * 获取权限列表
      */
     public function get_menu(){
-
-        $top_menu = $this->auth_rule
-            ->where(['p_id' => 0, 'is_show' => 0])
-            ->select();
-        foreach($top_menu as $key => $value){
-            $top_menu[$key]['child'] = $this->auth_rule
-                ->where(['p_id' => $value['id']])
+        $id = cookie('login'); // 超级管理员，拥有至高无上的权利
+        if($id == 1){
+            $top_menu = $this->auth_rule
+                ->where(['p_id' => 0, 'is_show' => 0])
                 ->select();
+            foreach($top_menu as $key => $value){
+                $top_menu[$key]['child'] = $this->auth_rule
+                    ->where(['p_id' => $value['id']])
+                    ->select();
+            }
+        }else{
+            $group_access = $this->auth_group_access
+                ->alias('a')
+                ->where(['uid' => $id])
+                ->join([['auth_group b', 'a.group_id = b.id', 'left']])
+                ->field('b.rules')
+                ->find();
+            // 查询权限菜单
+            $top_menu = $this->auth_rule->where("id in({$group_access['rules']}) and p_id = 0")->select();
+            foreach($top_menu as $key => $value){
+                $top_menu[$key]['child'] = $this->auth_rule->where("id in({$group_access['rules']}) and p_id = {$value['id']}")->select();
+            }
         }
         return $top_menu;
     }
-
 
     /**
      * @param $rule

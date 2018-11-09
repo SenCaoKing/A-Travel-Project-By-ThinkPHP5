@@ -53,7 +53,7 @@
             <nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
                 <ul class="cl">
                     <li>超级管理员</li>
-                    <li class="dropDown dropDown_hover"> <a href="#" class="dropDown_A">admin <i class="Hui-iconfont"></i></a>
+                    <li class="dropDown dropDown_hover"> <a href="#" class="dropDown_A">{:cookie('login')} <i class="Hui-iconfont"></i></a>
                         <ul class="dropDown-menu menu radius box-shadow">
                             <li><a href="<?php echo url('login/logout')?>">退出</a></li>
                         </ul>
@@ -79,7 +79,7 @@
     <div class="menu_dropdown bk_2">
         <?php foreach($button as $k => $v){?>
         <dl id="menu-article">
-            <dt><i class="Hui-iconfont">&<?php echo $v['icon']?>;</i> <?php echo $v['title']?><i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
+            <dt><i class="Hui-iconfont"><!--&<?php echo $v['icon']?>;--></i> <?php echo $v['title']?><i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
             <dd <?php if($parent_title == $v['title']) echo 'style="display:block"';?>>
                 <ul>
                     <?php foreach($v['child'] as $k1 => $v1){?>
@@ -97,8 +97,8 @@
     <nav class="breadcrumb">
         <i class="Hui-iconfont"></i>
         首页 <span class="c-gray en">&gt;</span>
-
-
+        {$parent_title}<span class="c-gray en">&gt;</span>
+        {$son_title}
         <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="" title="刷新"><i class="Hui-iconfont"></i></a>
     </nav>
 

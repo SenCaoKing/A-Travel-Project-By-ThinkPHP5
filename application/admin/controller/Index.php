@@ -1,13 +1,17 @@
 <?php
+/**
+ * User: Sen
+ * Date: 2018/11/09
+ * Time: 20:30
+ */
 namespace app\admin\controller;
 
-use think\Controller;
-
-class Index extends Controller
-{
-    public function index()
-    {
-        dump(123);
-        return view('index');
+class Index extends Base {
+    public function index(){
+        $info = $this->admin
+            ->where(['id'=>$this->id])
+            ->find();
+dump($info);
+        return view('index', ['info'=>$info]);
     }
 }
