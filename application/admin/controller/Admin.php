@@ -79,4 +79,24 @@ class Admin extends Base {
             'row'  => $admin
         ]);
     }
+
+    /**
+     * @return \think\response\Json
+     * 删除权限节点
+     */
+    public function del()
+    {
+        if(Request::instance()->isPost()){
+            $id = Request::instance()->post('id');
+            $info = $this->admin->where(['id' => $id])->find();
+            if($info){
+                $this->auth_group_access->where(['uid' => $id])->delete();
+                $res = $this->admin->where(['id' => $id])->delete();
+            }
+            if($res){
+                return _success();
+            }
+            return _error('操作失败');
+        }
+    }
 }
