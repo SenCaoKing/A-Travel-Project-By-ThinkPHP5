@@ -4,14 +4,14 @@
     <div class="row cl">
         <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>权限名称：</label>
         <div class="formControls col-xs-8 col-sm-9">
-            <input type="text" class="input-text" value="" placeholder="权限名称" name="title">
+            <input type="text" class="input-text" value="<?php echo $menu['title']?>" placeholder="权限名称" name="title">
         </div>
     </div>
 
     <div class="row cl">
         <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>权限路由：</label>
         <div class="formControls col-xs-8 col-sm-9">
-            <input type="text" class="input-text" value="" placeholder="路由规则：" id="name" name="name">
+            <input type="text" class="input-text" value="<?php echo $menu['name']?>" placeholder="路由规则：" id="name" name="name">
         </div>
     </div>
 
@@ -19,7 +19,7 @@
     <div class="row cl">
         <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>权限图标：</label>
         <div class="formControls col-xs-8 col-sm-9">
-            <input type="text" class="input-text" value="" placeholder="请使用矢量图代码：如#xe681" id="icon" name="icon">
+            <input type="text" class="input-text" value="<?php echo $menu['icon']?>" placeholder="请使用矢量图代码：如#xe681" id="icon" name="icon">
         </div>
     </div>
 
@@ -30,9 +30,9 @@
                 <select class="select" name="p_id" size="1">
                     <option value="0">顶级分类</option>
                         <?php foreach($top_menu as $v){?>
-                            <option value="<?php echo $v['id']?>" >-<?php echo $v['title'] ?></option>
+                            <option value="<?php echo $v['id']?>" <?php echo $v['id'] == $menu['p_id'] ? 'selected' : ''?>>-<?php echo $v['title'] ?></option>
                                 <?php foreach($v['child'] as $v1){ ?>
-                                    <option value="<?php echo $v1['id']?>">&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $v1['title'] ?></option>
+                                    <option value="<?php echo $v1['id']?>" <?php echo $v1['id'] == $menu['p_id'] ? 'selected' : ''?>>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $v1['title'] ?></option>
                                 <?php } ?>
                         <?php } ?>
                 </select>
@@ -44,11 +44,11 @@
         <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>是否显示：</label>
         <div class="formControls col-xs-8 col-sm-9 skin-minimal">
             <div class="radio-box">
-                <input type="radio" id="sex-2" value="0" />
+                <input type="radio" id="sex-2" value="0" <?php echo empty($menu) || $menu['is_show'] == 0 ? 'checked' : ''?> name="is_show" />
                 <label for="sex-2">是</label>
             </div>
             <div class="radio-box">
-                <input type="radio" id="sex-3" value="1" />
+                <input type="radio" id="sex-3" value="1" <?php echo $menu['is_show'] == 1 ? 'checked' : ''?> name="is_show" />
                 <label for="sex-3">否</label>
             </div>
         </div>
@@ -57,13 +57,13 @@
     <div class="row cl">
         <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>排序值：</label>
         <div class="formControls col-xs-8 col-sm-9">
-            <input type="text" class="input-text" value="" placeholder="排序值" name="orderby">
+            <input type="text" class="input-text" value="<?php echo $menu['orderby']?>" placeholder="排序值" name="orderby">
         </div>
     </div>
 
     <div class="row cl">
         <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-            <input type="hidden" name="id" value="">
+            <input type="hidden" name="id" value="<?php echo $menu['id']?>">
             <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
         </div>
     </div>

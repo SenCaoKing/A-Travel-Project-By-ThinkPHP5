@@ -69,8 +69,6 @@ class Admin extends Base {
             $this->admin->commit();
             return _success();
         }
-
-
         $role = $this->auth_group->select();
         $id = Request::instance()->param('id');
         $admin = $this->admin->where(['id' => $id])->find();

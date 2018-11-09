@@ -3,7 +3,7 @@
 <div class="Hui-article">
     <article class="cl pd-20">
         <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
-            <a href="{:url('rule/addRule')}" class="btn btn-primary radius"><i class="Hui-iconfont"></i> 添加权限节点</a></span> <span class="r">共有数据：<strong><?php echo count($list)?></strong> 条</span> </div>
+            <a href="javascript:;" onclick="open_page('添加权限节点', '{:url("rule/addRule")}', '', '400')" class="btn btn-primary radius"><i class="Hui-iconfont"></i> 添加权限节点</a></span> <span class="r">共有数据：<strong><?php echo count($list)?></strong> 条</span> </div>
         <table class="table table-border table-bordered table-bg mt-10">
             <thead>
             <tr class="text-c">
@@ -23,8 +23,7 @@
                 </td>
                 <td><?php echo $v['name']?></td>
                 <td>
-                    <a href="{:url('rule/addRule', ['id'=>$v['id']])}" class="btn btn-success radius">编辑</a>
-                    <!--<input class="btn btn-success radius size-MINI" type="button" href="{:url('rule/addRule', ['id'=>$v['id']])}" value="编辑">-->
+                    <input class="btn btn-success radius size-MINI" type="button" onclick="open_page('编辑', '<?php echo url('rule/addRule', ['id' => $v['id']])?>', '', 400)" value="编辑">
                     <input class="btn btn-danger radius size-MINI ml-5" type="button" onclick="del(this, <?php echo $v['id']?>)" value="删除">
                 </td>
             </tr>

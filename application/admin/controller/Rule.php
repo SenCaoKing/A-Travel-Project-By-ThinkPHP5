@@ -13,13 +13,13 @@ use think\Request;
  * 权限节点管理
  */
 class Rule extends Base {
+
     public function addRule()
     {
         // 读取一级菜单
         $top_menu = $this->auth_rule->where('p_id = 0')->field('id, title, p_id')->select();
-
-
-
+        $id = intval(input('param.id'));
+        $menu = $this->auth_rule->where(['id' => $id])->find();
         foreach($top_menu as $k => $v){
             $top_menu[$k]['child'] = $this->auth_rule->where("p_id = {$v['id']}")->field('id, title, p_id')->select();
         }
@@ -37,7 +37,8 @@ class Rule extends Base {
             return _error('操作失败');
         }
         return $this->fetch('add_rule', [
-            'top_menu' => $top_menu
+            'top_menu' => $top_menu,
+            'menu'     => $menu
         ]);
     }
 

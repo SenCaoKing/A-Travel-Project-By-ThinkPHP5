@@ -30,7 +30,7 @@
                 <td><?php echo date('Y-m-d H:i:s', $v['create_time'])?></td>
                 <td class="td-status"><span class="label label-success radius"><?php echo $v['status'] == 1 ? '正常' : '停用'?></span></td>
                 <td class="td-manage">
-                    <input class="btn btn-success radius size-MINI" type="button" onclick="open_page('角色编辑', '<?php echo url('admin/adminAdd', ['id' => $v['id']])?>', '800')" value="编辑">
+                    <input class="btn btn-success radius size-MINI" type="button" onclick="open_page('用户编辑', '<?php echo url('admin/adminAdd', ['id' => $v['id']])?>', '800')" value="编辑">
                     <input class="btn btn-danger radius size-MINI ml-5" type="button" onclick="del(this, <?php echo $v['id']?>)" value="删除">
 
                 </td>
