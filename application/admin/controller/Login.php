@@ -12,8 +12,8 @@ use app\server\Param;
 
 class Login extends Base {
     protected $params;
-
-
+    protected $_rule_check = false;
+    protected $_is_login = false;
     /**
      * 后台登录
      * @return array|\think\response\View
