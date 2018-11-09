@@ -29,9 +29,8 @@ class Role extends Base {
             }
             if($res){
                 return _success();
-            }else{
-                return _error('数据库操作失败');
             }
+            return _error('数据库操作失败');
         }
         // 获取顶级菜单
         $top_menu = $this->auth_rule->where(['p_id' => 0])->select();
@@ -47,11 +46,12 @@ class Role extends Base {
                     ->select();
             }
         }
+        // 查询当前这一条数据
+        $row = $this->auth_group->where(['id' => $this->params['id']])->find();
 
-
-        // dump($top_menu);
         return $this->fetch('add_role', [
-            'menu' => $top_menu
+            'menu' => $top_menu,
+            'row'  => $row
         ]);
     }
 

@@ -3,7 +3,7 @@
 <div class="Hui-article">
     <article class="cl pd-20">
         <div class="cl pd-5 bg-1 bk-gray"> <span class="l">
-            <a href="{:url('role/addRole')}" class="btn btn-primary radius"><i class="Hui-iconfont"></i> 添加角色</a> </span> <span class="r">共有数据：<strong></strong> 条</span> </div>
+            <a class="btn btn-primary radius" href="javascript:;" onclick="open_page('添加角色', '<?php echo url('role/addRole')?>', '800')"><i class="Hui-iconfont"></i> 添加角色</a> </span> <span class="r">共有数据：<strong></strong>{$list|count} 条</span> </div>
         <div class="mt-10">
             <table class="table table-border table-bordered table-hover table-bg">
                 <thead>
@@ -33,7 +33,7 @@
                     </td>
                     <td><?php echo $v['description']?></td>
                     <td class="f-16">
-                        <input class="btn btn-success radius size-MINI" type="button" onclick="open_page()" value="编辑">
+                        <input class="btn btn-success radius size-MINI" type="button" onclick="open_page('角色编辑', '<?php echo url('role/addRole', ['id' => $v['id']])?>', '800')" value="编辑">
                         <input class="btn btn-danger radius size-MINI ml-5" type="button" onclick="del(this, <?php echo $v['id']?>)" value="删除">
 
                     </td>
