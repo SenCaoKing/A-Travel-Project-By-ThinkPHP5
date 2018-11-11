@@ -3,7 +3,6 @@ composer.lock
 *.log
 thinkphp
 /vendor
-/runtime
 .env
 /application/database.php
 /sen_lvyou.sql

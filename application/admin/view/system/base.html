@@ -1,0 +1,118 @@
+﻿{extend name="public/base" /}
+{block name="main"}
+<div class="page-container">
+    <form class="form form-horizontal" id="form" method="post">
+        <div id="tab-system" class="HuiTab">
+            <div class="tabBar cl">
+                <span>App配置</span>
+                <span>公司设置</span>
+                <span>优惠券设置</span>
+            </div>
+            <div class="tabCon">
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>App名称：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" id="app_name" value="{$config.app_name}" class="input-text" name="app_name">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>版本号：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" id="version" value="{$config.version}" class="input-text" name="version">
+                    </div>
+                </div>
+
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>导游标签：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <textarea class="textarea" name="guide_label" id="guide_label">{$config.guide_label}</textarea>
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>游客标签：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <textarea class="textarea" name="tourist_label" id="tourist_label">{$config.tourist_label}</textarea>
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>话题标签：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <textarea class="textarea" name="theme_label" id="theme_label">{$config.theme_label}</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="tabCon">
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>关于我们：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <textarea class="textarea" name="about_us" id="theme_label">{$config.about_us}</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="tabCon">
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>全员优惠券(元)：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" id="coupon" value="{$config.coupon}" class="input-text" name="coupon" >
+                    </div>
+                </div>
+
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>优惠券有效期：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" id="coupon" value="{$config.valid}" class="input-text" name="valid">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont"></i>保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+{/block}
+<!-- 请在上方写此页面body相关内容 -->
+
+<!-- 请在下方写此页面业务相关的脚本 -->
+{block name="js"}
+<script type="text/javascript" src="/public/static/h-ui.admin/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/public/static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+        $.Huitab("#tab-system .tabBar span", "#tab-system .tabCon", "current", "click", "0");
+
+        $("#form").validate({
+            rules:{
+                app_name:{required:true,},
+                version:{required:true,},
+                guide_label:{required:true,},
+                tourist_label:{required:true,},
+                theme_label:{required:true,},
+            },
+            submitHandler:function(form){
+                var options = {
+                    success: function(data){
+                        console.log(data);
+                        if(data.code == 0){
+                            layer.msg(data.msg, {icon:1, time:1000});
+                        }else{
+                            layer.msg(data.msg, {icon:5, time:1000});
+                        }
+                    }
+                };
+                $(form).ajaxSubmit(options);
+            }
+        });
+    });
+</script>
+
+
+{/block}
+<!-- /请在上方写此页面业务相关的脚本 -->

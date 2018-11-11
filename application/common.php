@@ -54,3 +54,21 @@ function rule_infinite($list = [], $parent_id = 0, $deep = 0){
     }
     return $arr;
 }
+
+/**
+ * @return array
+ * @throws \think\db\exception\DataNotFoundException
+ * @throws \think\db\exception\ModelNotFoundException
+ * @throws \think\exception\DbException
+ */
+function get_config(){
+    // 获取配置文件信息
+    $list = db('config')->select();
+    $config = [];
+    if(!empty($list)){
+        foreach($list as $v){
+            $config[$v['key']] = $v['value'];
+        }
+    }
+    return $config;
+}
