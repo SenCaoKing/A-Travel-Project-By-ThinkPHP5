@@ -1,7 +1,37 @@
-﻿{extend name="public/base" /}
-{block name="main"}
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:69:"E:\WWW\mytest\github\lvyou/application/admin\view\goods\goodsAdd.html";i:1540298606;}*/ ?>
+﻿<html><head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+    <link rel="Bookmark" href="favicon.ico">
+    <link rel="Shortcut Icon" href="favicon.ico">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/public/lib/html5.js"></script>
+    <script type="text/javascript" src="/public/lib/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/public/static/h-ui/css/H-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/static/h-ui.admin/css/H-ui.admin.css">
+    <link rel="stylesheet" type="text/css" href="/public/lib/Hui-iconfont/1.0.8/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="/public/static/h-ui.admin/skin/default/skin.css" id="skin">
+    <link rel="stylesheet" type="text/css" href="/public/static/h-ui.admin/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/public/static/h-ui.admin/css/zoomify.min.css">
+    <!--[if IE 6]>
+    <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <!--/meta 作为公共模版分离出去-->
+    <title>H-ui.admin v3.0</title>
+    <meta name="keywords" content="H-ui.admin v3.0,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
+    <meta name="description" content="H-ui.admin v3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+    <link rel="stylesheet" href="https://www.soullv.com/public/lib/layer/2.4/skin/layer.css" id="layui_layer_skinlayercss" style=""><link href="/public/lib/My97DatePicker/4.8/skin/WdatePicker.css" rel="stylesheet" type="text/css"></head>
+<body>
+
 <article class="page-container">
-    <form class="form form-horizontal" id="form" method="post" action="<?php echo url('goods/goodsAdd')?>" enctype="multipart/form-data">
+    <form class="form form-horizontal" id="form" method="post" action="" enctype="multipart/form-data" novalidate="novalidate">
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>商品名称：</label>
             <div class="formControls col-xs-8 col-sm-9">
@@ -11,9 +41,9 @@
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">Logo：</label>
             <div class="formControls col-xs-8 col-sm-9"> <span class="btn-upload form-group">
-                <input class="input-text upload-url" type="text" id="logo" readonly="" nullmsg="请上传封面！" style="width:200px">
-                <a href="javascript:void(0);" class="btn btn-primary radius upload-btn"><i class="Hui-iconfont"></i> 浏览文件</a>
-                <input type="file" id="file" name="logo[]" onchange="imgReviewOne('file','preview')" class="input-file"></span>
+            <input class="input-text upload-url" type="text" id="logo" readonly="" nullmsg="请上传封面！" style="width:200px">
+            <a href="javascript:void(0);" class="btn btn-primary radius upload-btn"><i class="Hui-iconfont"></i> 浏览文件</a>
+            <input type="file" id="file" name="logo[]" onchange="imgReviewOne('file','preview')" class="input-file"></span>
                 <img class="" id="preview" src="" alt="">
             </div>
         </div>
@@ -70,13 +100,17 @@
         </div>
     </form>
 </article>
-{/block}
-<!-- 请在上方写此页面body相关内容 -->
 
-<!-- 请在下方写此页面业务相关的脚本 -->
-{block name="js"}
-<script type="text/javascript">
+<script type="text/javascript" src="/public/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/public/lib/jQuery.Form.js"></script>
+<script type="text/javascript" src="/public/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/public/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/public/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/public/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/public/static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="/public/static/h-ui.admin/js/H-ui.admin.page.js"></script>
+<script type="text/javascript" src="/public/lib/zoomify.min.js"></script>
+<script type="text/javascript" src="/public/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/public/static/h-ui/js/main.js"></script>
 
-</script>
-{/block}
-<!-- /请在上方写此页面业务相关的脚本 -->
+</body></html>

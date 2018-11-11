@@ -99,7 +99,6 @@
             submitHandler:function(form){
                 var options = {
                     success: function(data){
-                        console.log(data);
                         if(data.code == 0){
                             layer.msg(data.msg, {icon:1, time:1000});
                         }else{
@@ -112,7 +111,5 @@
         });
     });
 </script>
-
-
 {/block}
 <!-- /请在上方写此页面业务相关的脚本 -->
