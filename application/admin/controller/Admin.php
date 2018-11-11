@@ -37,6 +37,9 @@ class Admin extends Base {
                 $data['last_login_ip']   = \app\server\Ip::get_client_ip();
                 $data['create_time']     = time();
                 $data['update_time']     = time();
+                if($data['password'] !== $data['password2']){
+                    return _error('两次密码不一致！');
+                }
                 $data['password']        = password_hash($data['password'], true);
                 if(empty($data['password'])){
                     unset($data['password']);
@@ -45,23 +48,20 @@ class Admin extends Base {
                 $group_id = $data['group_id'];
                 unset($data['group_id']); // 销毁多余字段
                 $this->admin->startTrans();
-                if($data['id']){
+                if($data['username']){
                     $this->admin->update($data);
-                    $data['group_id'] = $group_id;
                     $this->auth_group_access
                         ->where(['uid' => $data['id']])
                         ->update([
-                            'group_id' => $data['group_id']
+                            'group_id' => $group_id
                         ]);
                 }else{
                     $uid = $this->admin->insertGetId($data);
-                    $data['group_id'] = $group_id;
                     $this->auth_group_access->insert([
                         'uid'      => $uid,
-                        'group_id' => $data['group_id']
+                        'group_id' => $group_id
                     ]);
                 }
-
             }catch(\Exception $e){
                 $this->admin->rollback();
                 return _error($e->getMessage());
@@ -72,9 +72,11 @@ class Admin extends Base {
         $role = $this->auth_group->select();
         $id = Request::instance()->param('id');
         $admin = $this->admin->where(['id' => $id])->find();
+        $group_access = $this->auth_group_access->where(['uid' => $id])->find();
         return $this->fetch('admin_add', [
             'role' => $role,
-            'row'  => $admin
+            'row'  => $admin,
+            'group_access'  => $group_access,
         ]);
     }
 
