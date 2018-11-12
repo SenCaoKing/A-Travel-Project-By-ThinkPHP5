@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:69:"E:\WWW\mytest\github\lvyou/application/admin\view\goods\goodsAdd.html";i:1542022048;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\main.html";i:1540682192;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:69:"E:\WWW\mytest\github\lvyou/application/admin\view\goods\goodsAdd.html";i:1542030586;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\main.html";i:1540682192;}*/ ?>
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
@@ -119,6 +119,23 @@
 <script type="text/javascript" src="/public/static/h-ui.admin/js/H-ui.admin.page.js"></script>
 
 <script type="text/javascript">
+    function imgReviewOne(file, img){
+        var docObj = document.getElementById(file);
+        var imgObjPreview = document.getElementById("preview");
+        imgObjPreview.style.display = 'block';
+        $('#'+img).attr('class', 'avatar size-XL pt-10');
+        imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
+    }
+
+    function imgReviewMore(file, img){
+        var docObj = document.getElementById(file);
+        var files = docObj.files;
+        for(var i=0; i<files.length; i++){
+            var url = window.URL.createObjectURL(files[i]);
+            $('#'+img).append('<img class="avatar size-XL pt-10 pr-10" src="'+ url +'" alt="">');
+        }
+    }
+
     $(function(){
         $('.skin-minimal input').iCheck({
             checkboxClass: 'icheckbox-blue',
@@ -149,7 +166,6 @@
                             layer.msg(data.msg, {icon:5, time:1000});
                         }
                         */
-
                     }
                 };
                 $(form).ajaxSubmit(options);

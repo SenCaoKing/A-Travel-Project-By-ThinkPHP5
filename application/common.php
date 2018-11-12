@@ -56,6 +56,33 @@ function rule_infinite($list = [], $parent_id = 0, $deep = 0){
 }
 
 /**
+ * 搜索调用
+ * @param array $search 查询条件
+ * @param array $name   名称 模糊查询
+ * @param array $time   时间 范围查询
+ * @param array $status 状态 精确查询
+ * @return array
+ */
+function search($search, $name=[], $time=[], $status=[], $is_time=false){
+    $where = '';
+    $params = array();
+    if(empty($search)){ // 没有查询条件返回空数组
+        return array('where'=>$where, 'params'=>$params);
+    }
+    if(!empty($name) && isset($search['search_name']) && !empty($search['search_name'])){ // 输入模糊查找
+        foreach($name as $k => $v){
+            $where .= $k == 0 ? "({$v} like '{$search['search_name']}%'" : " or {$v} like '{$search['search_name']}%'";
+        }
+        $where .= ')';
+        $params['search_name'] = $search['search_name'];
+    }
+    if(!empty($time) && (!empty($search['start_time']) || !empty($search['end_time']))){ // 时间范围查找
+        
+
+    }
+}
+
+/**
  * @return array
  * @throws \think\db\exception\DataNotFoundException
  * @throws \think\db\exception\ModelNotFoundException

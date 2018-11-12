@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:70:"E:\WWW\mytest\github\lvyou/application/admin\view\goods\goodslist.html";i:1541949657;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\base.html";i:1541769015;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:70:"E:\WWW\mytest\github\lvyou/application/admin\view\goods\goodslist.html";i:1542031872;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\base.html";i:1541769015;}*/ ?>
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
@@ -144,22 +144,25 @@
         </tr>
         </thead>
         <tbody>
+        <?php foreach($list as $v){?>
         <tr class="text-c">
-            <td>6</td>
-            <td>333</td>
-            <td><img class="avatar size-L" src="http://ly-goods-images.oss-cn-beijing.aliyuncs.com/2018-07-05/5b3dd93a6ef2b-07-05-16-39-22.png"></td>
-            <td>333</td>
-            <td>333</td>
-            <td>3333</td>
-            <td>333</td>
-            <td>333</td>
-            <td>3333</td>
+            <td><?php echo $v['id']?></td>
+            <td><?php echo $v['title']?></td>
+            <td><img class="avatar size-L" src="<?php echo $v['logo']?>"></td>
+            <td><?php echo $v['desc']?></td>
+            <td><?php echo $v['current_price']?></td>
+            <td><?php echo $v['address']?></td>
+            <td><?php echo $v['notice']?></td>
+            <td><?php echo $v['area_id']?></td>
+            <td><?php echo $v['area_name']?></td>
             <td>已通过</td>
-            <td>2018-07-05 16:39:23</td>
+            <td><?php echo $v['create_time']?></td>
             <td>
-                <input class="btn btn-success radius size-MINI" type="button" onclick="open_page('商品详情','/admin/goods/goodsshow/id/6/action/goodslist.html')" value="详情">
+                <input class="btn btn-success radius size-MINI" type="button" onclick="open_page('商品详情','<?php echo url('goods/goodsshow', array('id'=>$v['id'], 'action'=>'goodslist'))?>')" value="详情">
             </td>
         </tr>
+        <?php } ?>
+
         </tbody>
     </table>
     <span class="r pages mt-10"></span>

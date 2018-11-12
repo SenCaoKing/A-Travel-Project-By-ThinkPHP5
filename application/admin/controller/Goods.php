@@ -22,7 +22,10 @@ class Goods extends Base{
      */
     public function goodslist()
     {
-        return view('goodslist');
+
+        $list = $this->goods_share
+            ->select();
+        return view('goodslist', ['list' => $list]);
     }
 
     /**
@@ -32,7 +35,7 @@ class Goods extends Base{
     public function goodsAdd(){
         if(IS_POST){
             try{
-                $file = request()->file('logo');
+                $file = \Request::instance()->file('logo');
                 $urls = Alioss::get_instance()->upload_file($file);
                 $this->params['logo'] = $urls[0];
                 $this->params['create_time'] = time();
@@ -41,7 +44,7 @@ class Goods extends Base{
                 if(!$id){
                     throw new \LengthException('添加商品失败', 1000);
                 }
-                $file1 = request()->file('banner');
+                $file1 = \Request::instance()->file('banner');
                 $urls1 = Alioss::get_instance()->upload_file($file1);
                 $data = [];
                 foreach($urls1 as $k => $v){
