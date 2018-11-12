@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:70:"E:\WWW\mytest\github\lvyou/application/admin\view\goods\goodslist.html";i:1541948962;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\base.html";i:1541769015;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:70:"E:\WWW\mytest\github\lvyou/application/admin\view\goods\goodslist.html";i:1541949657;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\base.html";i:1541769015;}*/ ?>
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
@@ -124,7 +124,7 @@
     </form>
     <div class="cl pd-5 bg-1 bk-gray mt-20">
         <span class="l"><a href="javascript:;" onclick="open_page('添加商品','<?php echo url('goods/goodsAdd'); ?>','1000')" class="btn btn-primary radius"><i class="Hui-iconfont"></i> 添加商品</a></span>
-        <span class="r mt-5">共有记录：<strong>6</strong> 条</span>
+        <span class="r mt-5">共有记录：<strong></strong> 条</span>
     </div>
     <table class="table table-border table-bordered table-bg mt-10">
         <thead>
@@ -162,8 +162,7 @@
         </tr>
         </tbody>
     </table>
-    <span class="r pages mt-10"><ul class="pagination"><li class="disabled"><span>«</span></li> <li class="active"><span>1</span></li><li><a href="/admin/goods/goodslist?page=2">2</a></li><li><a href="/admin/goods/goodslist?page=3">3</a></li><li>
-            </ul></span>
+    <span class="r pages mt-10"></span>
 </div>
 
     </div>
@@ -177,6 +176,10 @@
 <script type="text/javascript" src="/public/static/h-ui/js/H-ui.js"></script>
 <script type="text/javascript" src="/public/static/h-ui/js/main.js"></script>
 <script type="text/javascript" src="/public/static/h-ui.admin/js/H-ui.admin.page.js"></script>
+
+<script type="text/javascript">
+
+</script>
 
 </body>
 </html>

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:66:"E:\WWW\mytest\github\lvyou/application/admin\view\login\login.html";i:1541517555;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:66:"E:\WWW\mytest\github\lvyou/application/admin\view\login\login.html";i:1542026772;}*/ ?>
 ﻿<!DOCTYPE HTML>
 <html>
 <head>

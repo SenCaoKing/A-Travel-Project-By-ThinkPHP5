@@ -1,11 +1,16 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:69:"E:\WWW\mytest\github\lvyou/application/admin\view\goods\goodsAdd.html";i:1540298606;}*/ ?>
-﻿<html><head>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:69:"E:\WWW\mytest\github\lvyou/application/admin\view\goods\goodsAdd.html";i:1542022048;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\main.html";i:1540682192;}*/ ?>
+﻿<!DOCTYPE HTML>
+<html>
+<head>
     <meta charset="utf-8">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <meta http-equiv="Cache-Control" content="no-siteapp">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <?php
+    $http_type = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https://' : 'http://';
+    ?>
+    <!--<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">-->
 
     <link rel="Bookmark" href="favicon.ico">
     <link rel="Shortcut Icon" href="favicon.ico">
@@ -27,11 +32,11 @@
     <title>H-ui.admin v3.0</title>
     <meta name="keywords" content="H-ui.admin v3.0,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
     <meta name="description" content="H-ui.admin v3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
-    <link rel="stylesheet" href="https://www.soullv.com/public/lib/layer/2.4/skin/layer.css" id="layui_layer_skinlayercss" style=""><link href="/public/lib/My97DatePicker/4.8/skin/WdatePicker.css" rel="stylesheet" type="text/css"></head>
+</head>
 <body>
 
 <article class="page-container">
-    <form class="form form-horizontal" id="form" method="post" action="" enctype="multipart/form-data" novalidate="novalidate">
+    <form class="form form-horizontal" id="form" method="post" action="<?php echo url('goods/goodsAdd')?>" enctype="multipart/form-data">
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>商品名称：</label>
             <div class="formControls col-xs-8 col-sm-9">
@@ -41,9 +46,9 @@
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">Logo：</label>
             <div class="formControls col-xs-8 col-sm-9"> <span class="btn-upload form-group">
-            <input class="input-text upload-url" type="text" id="logo" readonly="" nullmsg="请上传封面！" style="width:200px">
-            <a href="javascript:void(0);" class="btn btn-primary radius upload-btn"><i class="Hui-iconfont"></i> 浏览文件</a>
-            <input type="file" id="file" name="logo[]" onchange="imgReviewOne('file','preview')" class="input-file"></span>
+                <input class="input-text upload-url" type="text" id="logo" readonly="" nullmsg="请上传封面！" style="width:200px">
+                <a href="javascript:void(0);" class="btn btn-primary radius upload-btn"><i class="Hui-iconfont"></i> 浏览文件</a>
+                <input type="file" id="file" name="logo[]" onchange="imgReviewOne('file','preview')" class="input-file"></span>
                 <img class="" id="preview" src="" alt="">
             </div>
         </div>
@@ -103,14 +108,60 @@
 
 <script type="text/javascript" src="/public/lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="/public/lib/jQuery.Form.js"></script>
+<script type="text/javascript" src="/public/lib/zoomify.min.js"></script>
 <script type="text/javascript" src="/public/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/public/lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="/public/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
 <script type="text/javascript" src="/public/lib/jquery.validation/1.14.0/validate-methods.js"></script>
 <script type="text/javascript" src="/public/lib/jquery.validation/1.14.0/messages_zh.js"></script>
 <script type="text/javascript" src="/public/static/h-ui/js/H-ui.js"></script>
-<script type="text/javascript" src="/public/static/h-ui.admin/js/H-ui.admin.page.js"></script>
-<script type="text/javascript" src="/public/lib/zoomify.min.js"></script>
-<script type="text/javascript" src="/public/lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="/public/static/h-ui/js/main.js"></script>
+<script type="text/javascript" src="/public/static/h-ui.admin/js/H-ui.admin.page.js"></script>
 
-</body></html>
+<script type="text/javascript">
+    $(function(){
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-yellow',
+            increaseArea: '20%'
+        });
+        $("#form").validate({
+            rules:{
+                title:{required:true,},
+                desc:{required:true,},
+                logo:{required:true,},
+                banner:{required:true,},
+                current_price:{required:true, number:true},
+                address:{required:true,},
+                notice:{required:true,},
+                area_id:{required:true, number:true},
+                area_name:{required:true,},
+            },
+            submitHandler:function(form){
+                var options = {
+                    success: function(data){
+                        console.log(data);
+                        /*
+                        if(data.code == 0){
+                            layer.msg(data.msg, {icon:1, time:1000});
+                            setTimeout("closeWindow()", 1000);
+                        }else{
+                            layer.msg(data.msg, {icon:5, time:1000});
+                        }
+                        */
+
+                    }
+                };
+                $(form).ajaxSubmit(options);
+            }
+        });
+    });
+
+    function closeWindow(){
+        var index = parent.layer.getFrameIndex(window.name);
+        window.parent.location.reload(index);
+    }
+</script>
+
+</body>
+</html>
