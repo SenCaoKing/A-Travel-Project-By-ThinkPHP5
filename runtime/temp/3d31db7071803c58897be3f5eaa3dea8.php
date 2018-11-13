@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:70:"E:\WWW\mytest\github\lvyou/application/admin\view\goods\goodslist.html";i:1542112879;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\base.html";i:1541769015;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:70:"E:\WWW\mytest\github\lvyou/application/admin\view\goods\goodsList.html";i:1542112879;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\base.html";i:1541769015;}*/ ?>
 ﻿<!DOCTYPE HTML>
 <html>
 <head>

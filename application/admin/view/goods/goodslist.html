@@ -51,7 +51,7 @@
             <td><?php echo $v['area_id']?></td>
             <td><?php echo $v['area_name']?></td>
             <td>已通过</td>
-            <td><?php echo $v['create_time']?></td>
+            <td><?php echo $v['create_time'] ? date('Y-m-d H:i:s', $v['create_time']) : '-'?></td>
             <td>
                 <input class="btn btn-success radius size-MINI" type="button" onclick="open_page('商品详情','<?php echo url('goods/goodsshow', array('id'=>$v['id'], 'action'=>'goodslist'))?>')" value="详情">
             </td>

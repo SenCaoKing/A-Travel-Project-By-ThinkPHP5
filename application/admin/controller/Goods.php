@@ -10,7 +10,7 @@ use app\server\Param;
 use app\server\Alioss;
 
 class Goods extends Base{
-
+    protected $modle;
 
     public function __construct(){
         parent::__construct();
@@ -28,7 +28,22 @@ class Goods extends Base{
             ->where($where)
             ->order('a.id desc')
             ->paginate(1, false, ['query'=>$this->params, 'var_page'=>'page']);
-        return view('goodslist', ['list' => $list, 'params' => $search['params']]);
+        return view('goodsList', ['list' => $list, 'params' => $search['params']]);
+    }
+
+    /**
+     * 商品详情
+     * @return \think\response\View
+     */
+    public function goodsShow(){
+        switch($this->params['action']){
+            case 'goodslist': $this->model = $this->goods_share;break;
+            case 'goodsguidelist': $this->model = $this->goods;break;
+        }
+        $info = $this->model->find($this->params['id']);
+        $info['action'] = $this->params['action'];
+
+        return view('goodsShow', ['info' => $info]);
     }
 
     /**

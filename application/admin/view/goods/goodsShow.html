@@ -1,0 +1,75 @@
+﻿{extend name="public/main" /}
+{block name="main"}
+<div class="cl pd-20" style="background-color: #5bacb6;">
+    <img class="avatar size-XL l" src="<?php echo $info['logo']?>" alt="">
+    <dl style="margin-left: 80px; color: #fff;">
+        <dt>
+            <span class="f-18"><?php echo $info['title']?></span>
+        </dt>
+        <dd class="pt-10 f-12" style="margin-left: 0">
+            <span class="pl-10 f-12">描述：<?php echo $info['desc']?></span>
+        </dd>
+    </dl>
+</div>
+<div class="pt-10">
+    <table class="table">
+        <tbody>
+        <tr>
+            <th class="text-r" style="width: 90px;">状态：</th>
+            <td><?php switch($info['status']){
+            case 1: echo '待审核';break;
+            case 2: echo '已通过';break;
+            case 3: echo '未通过';break;
+            }?></td>
+        </tr>
+        <tr>
+            <th class="text-r" style="width: 90px;">商品价格：</th>
+            <td><?php echo $info['current_price'] ?: '-'?></td>
+        </tr>
+        <tr>
+            <th class="text-r" style="width: 90px;">目的地：</th>
+            <td><?php echo $info['address'] ?: '-'?></td>
+        </tr>
+        <tr>
+            <th class="text-r" style="width: 90px;">须知：</th>
+            <td><?php echo $info['notice'] ?: '-'?></td>
+        </tr>
+        <tr>
+            <th class="text-r" style="width: 90px;">地区编号：</th>
+            <td><?php echo $info['area_id'] ?: '-'?></td>
+        </tr>
+        <tr>
+            <th class="text-r" style="width: 90px;">地区名称：</th>
+            <td><?php echo $info['area_name'] ?: '-'?></td>
+        </tr>
+        <tr>
+            <th class="text-r" style="width: 90px;">上传时间：</th>
+            <td><?php echo $info['create_time'] ? date('Y-m-d H:i:s', $info['create_time']) : '-'?></td>
+        </tr>
+
+        <tr>
+            <th class="text-r" style="width: 90px;">上传图片：</th>
+            <td>
+                <img class="avatar size-XL" src="" alt="">
+                <a href="" download=""></a>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+<div class="audit pt-10 pl-30" >
+    <input class="btn btn-primary radius" type="button" onclick="" value="&nbsp;&nbsp;通过&nbsp;&nbsp;">
+    <input class="btn btn-danger radius ml-5" type="button" onclick="" value="&nbsp;&nbsp;拒绝&nbsp;&nbsp;">
+</div>
+{/block}
+
+<!-- 请在上方写此页面body相关内容 -->
+
+<!-- 请在下方写此页面业务相关的脚本 -->
+{block name="js"}
+<script type="text/javascript">
+
+</script>
+{/block}
+<!-- /请在上方写此页面业务相关的脚本 -->
