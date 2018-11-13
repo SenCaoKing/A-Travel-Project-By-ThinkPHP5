@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:70:"E:\WWW\mytest\github\lvyou/application/admin\view\goods\goodsShow.html";i:1542115870;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\main.html";i:1540682192;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:70:"E:\WWW\mytest\github\lvyou/application/admin\view\goods\goodsShow.html";i:1542118700;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\main.html";i:1540682192;}*/ ?>
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
@@ -93,9 +93,9 @@
         </tbody>
     </table>
 </div>
-<div class="audit pt-10 pl-30" >
-    <input class="btn btn-primary radius" type="button" onclick="" value="&nbsp;&nbsp;通过&nbsp;&nbsp;">
-    <input class="btn btn-danger radius ml-5" type="button" onclick="" value="&nbsp;&nbsp;拒绝&nbsp;&nbsp;">
+<div class="audit pt-10 pl-30" <?php if($info['status'] != 1) echo 'hidden'?>>
+    <input class="btn btn-primary radius" type="button" onclick="status(this, 2)" value="&nbsp;&nbsp;通过&nbsp;&nbsp;">
+    <input class="btn btn-danger radius ml-5" type="button" onclick="status(this, 3)" value="&nbsp;&nbsp;拒绝&nbsp;&nbsp;">
 </div>
 
 <script type="text/javascript" src="/public/lib/jquery/1.9.1/jquery.min.js"></script>
@@ -111,7 +111,57 @@
 <script type="text/javascript" src="/public/static/h-ui.admin/js/H-ui.admin.page.js"></script>
 
 <script type="text/javascript">
+    $(function(){
+        $('img').zoomify();
+    });
 
+
+    function status(obj, status){
+        var id = "<?php echo $info['id']?>";
+        var action = "<?php echo $info['action']?>";
+        var msg;
+        var msg1;
+        if(status === 2){
+            msg = '确认审核通过吗？';
+            msg1 = '已通过';
+        }else if(status === 3){
+            msg: '确认审核拒绝吗？';
+            msg1: '已拒绝';
+        }
+        layer.confirm(msg, function(){
+            $.ajax({
+                type: 'post',
+                url: "<?php echo url('goods/goodsStatus')?>",
+                data: {"id":id, "status":status, "action":action},
+                success:function(data){
+                    if(data.code == 0){
+                        layer.msg(msg1, {icon: 1, time: 1000});
+                        $('.audit').hide();
+                        setTimeout("closeWindow()", 1000);
+                    }else{
+                        layer.msg(data.msg, {icon: 5, time: 1000});
+                    }
+                }
+            });
+        });
+    }
+
+    function closeWindow(){
+        var index = parent.layer.getFrameIndex(window.name);
+        window.parent.location.reload(index);
+    }
+
+    function SaveAs5(imgURL){
+
+        var oPop = window.open(imgURL, "", "width=1, height=1, top=5000, left=5000");
+
+        for(; oPop.document.readyState != "complete"; )
+
+        { if(oPop.document.readyState == "complete")break; }
+
+        oPop.document.execCommand("SaveAs"); oPop.close();
+        
+    }
 </script>
 
 </body>

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:70:"E:\WWW\mytest\github\lvyou/application/admin\view\goods\goodsList.html";i:1542112879;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\base.html";i:1541769015;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:70:"E:\WWW\mytest\github\lvyou/application/admin\view\goods\goodsList.html";i:1542117405;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\base.html";i:1541769015;}*/ ?>
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
@@ -115,9 +115,9 @@
             <input type="text" class="input-text" style="width:250px" placeholder="输入商品名称" name="search_name" value="">
             <select class="select-box" style="width: 80px;padding: 5px 5px;" size="1" name="status">
                 <option value="" selected="">状态</option>
-                <option value="1">待审核</option>
-                <option value="2">已通过</option>
-                <option value="3">未通过</option>
+                <option value="1"  <?php if(isset($params['status']) && $params['status'] == 1) echo 'selected';?>>待审核</option>
+                <option value="2" <?php if(isset($params['status']) && $params['status'] == 2) echo 'selected';?>>已通过</option>
+                <option value="3" <?php if(isset($params['status']) && $params['status'] == 3) echo 'selected';?>>未通过</option>
             </select>
             <button type="submit" class="btn btn-success radius"><i class="Hui-iconfont"></i> 搜索</button>
         </div>
@@ -155,7 +155,11 @@
             <td><?php echo $v['notice']?></td>
             <td><?php echo $v['area_id']?></td>
             <td><?php echo $v['area_name']?></td>
-            <td>已通过</td>
+            <td><?php switch($v['status']){
+            case 1: echo '待审核';break;
+            case 2: echo '已通过';break;
+            case 3: echo '未通过';break;
+            }?></td>
             <td><?php echo $v['create_time'] ? date('Y-m-d H:i:s', $v['create_time']) : '-'?></td>
             <td>
                 <input class="btn btn-success radius size-MINI" type="button" onclick="open_page('商品详情','<?php echo url('goods/goodsshow', array('id'=>$v['id'], 'action'=>'goodslist'))?>')" value="详情">

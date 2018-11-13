@@ -10,7 +10,7 @@ use app\server\Param;
 use app\server\Alioss;
 
 class Goods extends Base{
-    protected $modle;
+    protected $model;
 
     public function __construct(){
         parent::__construct();
@@ -44,6 +44,26 @@ class Goods extends Base{
         $info['action'] = $this->params['action'];
 
         return view('goodsShow', ['info' => $info]);
+    }
+
+    /**
+     * 商品状态修改
+     * @return \think\response\Json
+     */
+    public function goodsStatus(){
+        switch($this->params['action']){
+            case 'goodslist': $this->model = $this->goods_share;break;
+            case 'goodsguidelist': $this->model = $this->goods;break;
+            case 'goodsreleaselist': $this->model = $this->goods_release;break;
+        }
+        if(IS_AJAX){
+            try{
+                $this->model->update(['status'=>$this->params['status'], 'id'=>$this->params['id']]);
+            }catch(\Exception $e){
+                return _error($e->getMessage(), $e->getCode());
+            }
+            return _success();
+        }
     }
 
     /**
