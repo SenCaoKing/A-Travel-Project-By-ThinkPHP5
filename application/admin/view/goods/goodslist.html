@@ -60,7 +60,7 @@
 
         </tbody>
     </table>
-    <span class="r pages mt-10"></span>
+    <span class="r pages mt-10"><?php echo !empty($list->items()) ? $list->render() : '';?></span>
 </div>
 {/block}
 <!-- 请在上方写此页面body相关内容 -->

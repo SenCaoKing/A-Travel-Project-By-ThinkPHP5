@@ -20,12 +20,15 @@ class Goods extends Base{
      * 公共商品列表
      * @return \think\response\View
      */
-    public function goodslist()
-    {
-
+    public function goodslist(){
+        $search = search($this->params, ['title'], ['create_time'], ['status']);
+        $where = $search['where'] ?: '';
         $list = $this->goods_share
-            ->select();
-        return view('goodslist', ['list' => $list]);
+            ->alias('a')
+            ->where($where)
+            ->order('a.id desc')
+            ->paginate(1, false, ['query'=>$this->params, 'var_page'=>'page']);
+        return view('goodslist', ['list' => $list, 'params' => $search['params']]);
     }
 
     /**

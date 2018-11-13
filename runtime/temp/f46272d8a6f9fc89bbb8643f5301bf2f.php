@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:70:"E:\WWW\mytest\github\lvyou/application/admin\view\goods\goodslist.html";i:1542031872;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\base.html";i:1541769015;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:70:"E:\WWW\mytest\github\lvyou/application/admin\view\goods\goodslist.html";i:1542112229;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\base.html";i:1541769015;}*/ ?>
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
@@ -165,7 +165,7 @@
 
         </tbody>
     </table>
-    <span class="r pages mt-10"></span>
+    <span class="r pages mt-10"><?php echo !empty($list->items()) ? $list->render() : '';?></span>
 </div>
 
     </div>

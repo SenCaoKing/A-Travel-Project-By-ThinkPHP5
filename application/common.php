@@ -77,9 +77,42 @@ function search($search, $name=[], $time=[], $status=[], $is_time=false){
         $params['search_name'] = $search['search_name'];
     }
     if(!empty($time) && (!empty($search['start_time']) || !empty($search['end_time']))){ // 时间范围查找
-        
+        foreach($time as $k => $v){
+            $k = $k ?: '';
+            if($is_time == true){
+                $start_time = isset($search['start_time'.$k]) ? "'".date("Y-m-d H:i:s", strtotime(date('Y-m-d 00:00:00', strtotime($search['start_time'.$k]))))."'" : 0;
+                $end_time = isset($search['end_time'.$k]) ? "'".date("Y-m-d H:i:s", strtotime(date('Y-m-d 23:59:59', strtotime($search['end_time'.$k]))))."'" : 0;
+            }else{
+                $start_time = isset($search['start_time'.$k]) ? strtotime(date('Y-m-d 00:00:00', strtotime($search['start_time'.$k]))) : 0;
+                $end_time = isset($search['end_time'.$k]) ? strtotime(date('Y-m-d 23:59:59', strtotime($search['end_time'.$k]))) : 0;
+            }
 
+            $and = $where ? ' and ' : '';
+            if(isset($search['start_time'.$k]) && !isset($search['end_time'.$k])){
+                $where .= "{$and}{$v} >= {$start_time}";
+                $params['start_time'.$k] = $search['start_time'.$k];
+            }elseif(!isset($search['start_time'.$k]) && isset($search['end_time'.$k])){
+                $where .= "{$and}{$v} <= {$end_time}";
+                $params['end_time'.$k] = $search['end_time'.$k];
+            }elseif(isset($search['start_time'.$k]) && isset($search['end_time'.$k])){
+                $where .= "{$and}{$v} between {$start_time} and {$end_time}";
+                $params['start_time'.$k] = $search['start_time'.$k];
+                $params['end_time'.$k] = $search['end_time'.$k];
+            }
+        }
     }
+    if(!empty($status) && !empty($search['status'])){ // 选择精确查找
+        foreach($status as $k => $v){
+            $val = explode('.', $v);
+            $val = strpos($v, '.') ? $val[1] : $v;
+            $and = $where ? ' and ' : '';
+            if(in_array($val, array_keys($search))){
+                $where .= "{$and}{$v} = {$search[$val]}";
+                $params[$val] = $search[$val];
+            }
+        }
+    }
+    return array('where'=>$where, 'params'=>$params);
 }
 
 /**
