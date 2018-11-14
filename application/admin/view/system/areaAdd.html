@@ -1,4 +1,59 @@
 ﻿{extend name="public/main" /}
 {block name="main"}
+<article class="page-container">
+    <form class="form form-horizontal" id="form" method="post" action="">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>地区名称：</label>
+            <div class="formControls col-xs-8 col-sm-10">
+                <input type="text" class="input-text" value="" placeholder="请输入地区名称" id="area" name="area">
+            </div>
+        </div>
 
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>地区拼音：</label>
+            <div class="formControls col-xs-8 col-sm-10">
+                <input class="input-text" type="text" value="" placeholder="请输入地区拼音" id="pinyin" name="pinyin">
+            </div>
+        </div>
+
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">地区背景图：</label>
+            <div class="formControls col-xs-8 col-sm-10"><span class="btn-upload form-group">
+                <input class="input-text upload-url" type="text" id="logo" readonly nullmsg="请上传封面！" style="width: 200px;">
+                <a href="javascript:void(0);" class="btn btn-primary radius upload-btn"><i class="Hui-iconfont"></i> 浏览文件</a>
+                <input type="file" id="file" name="logo" onchange="" class="input-file"></span>
+                <img class="" id="preview" src="" alt="">
+            </div>
+        </div>
+
+
+
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>上级地区：</label>
+            <div class="formControls col-xs-8 col-sm-10"><span class="select-box">
+                <select class="select" name="pid" size="1">
+                    <option value="0">顶级地区</option>
+
+                    <option value=""></option>
+
+                </select>
+            </span></div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>地区描述：</label>
+            <div class="formControls col-xs-8 col-sm-10">
+                <input type="text" class="input-text" value="" placeholder="请输入地区描述" id="desc" name="desc">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            </div>
+        </div>
+    </form>
+</article>
 {/block}

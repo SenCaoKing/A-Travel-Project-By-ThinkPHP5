@@ -1,0 +1,43 @@
+﻿{extend name="public/base" /}
+{block name="main"}
+<div class="page-container">
+    <form action="<?php echo url('system/areaList')?>" method="get">
+        <div class="text-c">
+            <input type="text" class="input-text" style="width: 250px;" placeholder="输入地区名称" name="search_name" value="">
+            <button type="submit" class="btn btn-success radius"><i class="Hui-iconfont"></i> 搜索</button>
+        </div>
+    </form>
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <span class="l"><a href="javascript:;" onclick="open_page('添加地区','<?php echo url('system/areaAdd'); ?>', '','400')" class="btn btn-primary radius"><i class="Hui-iconfont"></i> 添加地区</a></span>
+        <span class="r mt-5">共有记录：<strong></strong> 条</span>
+    </div>
+    <table class="table table-border table-bordered table-bg mt-10">
+        <thead>
+        <tr class="text-c">
+            <th width="40">ID</th>
+            <th>地区名称</th>
+            <th>地区拼音</th>
+            <th>地区背景</th>
+            <th>地区描述</th>
+            <th width=100">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr class="text-c">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <input class="btn btn-success radius size-MINI" type="button" onclick="open_page('地区编辑','<?php echo url('system/areaSave')?>', '', '400')" value="编辑">
+                <input class="btn btn-danger radius size-MINI ml-5" type="button" onclick="" value="删除">
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+    <span class="r pages mt-10"></span>
+</div>
+{/block}

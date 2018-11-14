@@ -27,4 +27,22 @@ class System extends Base {
         return view('base', ['config' => $config]);
     }
 
+    /**
+     * 地区列表
+     * @return \think\response\View
+     */
+    public function areaList(){
+
+        return view('areaList');
+    }
+
+    /**
+     * 添加地区
+     * @return \think\response\Json|\think\response\View
+     */
+    public function areaAdd(){
+
+        return view('areaAdd');
+    }
+
 }
