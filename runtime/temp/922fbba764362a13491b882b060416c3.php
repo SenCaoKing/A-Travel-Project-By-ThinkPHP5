@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:69:"E:\WWW\mytest\github\lvyou/application/admin\view\system\areaAdd.html";i:1542198739;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\main.html";i:1540682192;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:69:"E:\WWW\mytest\github\lvyou/application/admin\view\system\areaAdd.html";i:1542200592;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\main.html";i:1540682192;}*/ ?>
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
@@ -70,9 +70,9 @@
             <div class="formControls col-xs-8 col-sm-10"><span class="select-box">
                 <select class="select" name="pid" size="1">
                     <option value="0">顶级地区</option>
-
-                    <option value=""></option>
-
+                    <?php foreach($parent as $v){?>
+                    <option value="<?php echo $v['id']?>"><?php echo $v['area']?></option>
+                    <?php } ?>
                 </select>
             </span></div>
         </div>
