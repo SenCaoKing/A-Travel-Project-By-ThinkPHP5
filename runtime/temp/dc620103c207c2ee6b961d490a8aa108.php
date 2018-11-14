@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:70:"E:\WWW\mytest\github\lvyou/application/admin\view\system\areaList.html";i:1542197204;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\base.html";i:1541769015;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:70:"E:\WWW\mytest\github\lvyou/application/admin\view\system\areaList.html";i:1542204959;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\base.html";i:1541769015;}*/ ?>
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
@@ -108,13 +108,13 @@
 <div class="page-container">
     <form action="<?php echo url('system/areaList')?>" method="get">
         <div class="text-c">
-            <input type="text" class="input-text" style="width: 250px;" placeholder="输入地区名称" name="search_name" value="">
+            <input type="text" class="input-text" style="width: 250px;" placeholder="输入地区名称" name="search_name" value="<?php echo isset($params['search_name']) ? $params['search_name'] : ''?>">
             <button type="submit" class="btn btn-success radius"><i class="Hui-iconfont"></i> 搜索</button>
         </div>
     </form>
     <div class="cl pd-5 bg-1 bk-gray mt-20">
         <span class="l"><a href="javascript:;" onclick="open_page('添加地区','<?php echo url('system/areaAdd'); ?>', '','400')" class="btn btn-primary radius"><i class="Hui-iconfont"></i> 添加地区</a></span>
-        <span class="r mt-5">共有记录：<strong></strong> 条</span>
+        <span class="r mt-5">共有记录：<strong><?php echo $count?></strong> 条</span>
     </div>
     <table class="table table-border table-bordered table-bg mt-10">
         <thead>
@@ -124,26 +124,32 @@
             <th>地区拼音</th>
             <th>地区背景</th>
             <th>地区描述</th>
-            <th width=100">操作</th>
+            <th width="100">操作</th>
         </tr>
         </thead>
         <tbody>
+        <?php foreach($list as $v){?>
+        <tr class="text-c top_<?php echo $v['pid']?>" <?php if(!isset($params['search_name']) && $v['pid'] != 0) echo 'hidden';?>>
+            <td><?php echo $v['id']?></td>
+            <td class="operate" style="text-align: left; padding-left: 10px;">
+                <?php if(empty($v['deep'])){ echo empty($v['pid']) ? '<a onclick="display1(this, '.$v['id'].')"><span><i class="Hui-iconfont"></i></span></a>' : '- ';echo $v['area'];} else echo str_repeat('&nbsp',$v['deep']*4).'-'.$v['area'];?>
+            </td>
 
-        <tr class="text-c">
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+        <td><?php echo $v['pinyin']?></td>
+
+        <td><img src="<?php echo $v['logo']?>" style="width: 80px;"></td>
+
+            <td><?php echo $v['desc'] ? $v['desc'] : '--';?></td>
             <td>
-                <input class="btn btn-success radius size-MINI" type="button" onclick="open_page('地区编辑','<?php echo url('system/areaSave')?>', '', '400')" value="编辑">
+                <input class="btn btn-success radius size-MINI" type="button" onclick="open_page('地区编辑','<?php echo url('system/areaSave', ['id' => $v['id']])?>', '', '400')" value="编辑">
                 <input class="btn btn-danger radius size-MINI ml-5" type="button" onclick="" value="删除">
             </td>
         </tr>
-
+        <?php } if(empty($list)){?>
+        <tr class="text-l"><td colspan="20">没有找到匹配的记录</td></tr>
+        <?php } ?>
         </tbody>
     </table>
-    <span class="r pages mt-10"></span>
 </div>
 
     </div>

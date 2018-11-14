@@ -132,3 +132,22 @@ function get_config(){
     }
     return $config;
 }
+
+/**
+ * @param array $list
+ * @param int $parent_id
+ * @param int $deep
+ * @param string $key
+ * @return array
+ */
+function infinite($list = [], $parent_id = 0, $deep = 0, $key = 'pid'){
+    static $arr = [];
+    foreach($list as $v){
+        if($v[$key] == $parent_id){
+            $v['deep'] = $deep;
+            $arr[] = $v;
+            infinite($list, $v['id'], $deep+1, $key);
+        }
+    }
+    return $arr;
+}

@@ -32,8 +32,16 @@ class System extends Base {
      * @return \think\response\View
      */
     public function areaList(){
-
-        return view('areaList');
+        $search = search($this->params, ['area']);
+        $where = $search['where'] ?: '';
+        $list = $this->area
+            ->where($where)
+            ->select();
+        if(!$this->params){
+            $list = infinite($list);
+        }
+        $count = count($list);
+        return view('areaList', ['list'=>$list, 'params'=>$search['params'], 'count'=>$count]);
     }
 
     /**
