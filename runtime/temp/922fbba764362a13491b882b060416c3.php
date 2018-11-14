@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:69:"E:\WWW\mytest\github\lvyou/application/admin\view\system\areaAdd.html";i:1542200592;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\main.html";i:1540682192;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:69:"E:\WWW\mytest\github\lvyou/application/admin\view\system\areaAdd.html";i:1542200839;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\main.html";i:1540682192;}*/ ?>
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
@@ -57,7 +57,7 @@
             <div class="formControls col-xs-8 col-sm-10"><span class="btn-upload form-group">
                 <input class="input-text upload-url" type="text" id="logo" readonly nullmsg="请上传封面！" style="width: 200px;">
                 <a href="javascript:void(0);" class="btn btn-primary radius upload-btn"><i class="Hui-iconfont"></i> 浏览文件</a>
-                <input type="file" id="file" name="logo" onchange="" class="input-file"></span>
+                <input type="file" id="file" name="logo" onchange="imgReviewOne('file', 'preview')" class="input-file"></span>
                 <img class="" id="preview" src="" alt="">
             </div>
         </div>
@@ -103,6 +103,68 @@
 <script type="text/javascript" src="/public/static/h-ui/js/H-ui.js"></script>
 <script type="text/javascript" src="/public/static/h-ui/js/main.js"></script>
 <script type="text/javascript" src="/public/static/h-ui.admin/js/H-ui.admin.page.js"></script>
+
+<script type="text/javascript">
+
+    function imgReviewOne(file, img){
+        var docObj = document.getElementById(file);
+        var imgObjPreview = document.getElementById("preview");
+        imgObjPreview.style.display = 'block';
+        $('#'+img).attr('class', 'avatar size-XL pt-10');
+        imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
+    }
+
+    function imgReviewMore(file, img){
+        var docObj = document.getElementById(file);
+        var files = docObj.files;
+        for(var i=0; i<files.length; i++){
+            var url = window.URL.createObjectURL(files[i]);
+            $('#'+img).append('<img class="avatar size-XL pt-10 pr-10" src="'+ url +'" alt="">');
+        }
+    }
+
+    $(function(){
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-yellow',
+            increaseArea: '20%'
+        });
+        $("#form").validate({
+            rules:{
+                title:{required:true,},
+                desc:{required:true,},
+                logo:{required:true,},
+                banner:{required:true,},
+                current_price:{required:true, number:true},
+                address:{required:true,},
+                notice:{required:true,},
+                area_id:{required:true, number:true},
+                area_name:{required:true,},
+            },
+            submitHandler:function(form){
+                var options = {
+                    success: function(data){
+                        console.log(data);
+                        /*
+                        if(data.code == 0){
+                            layer.msg(data.msg, {icon:1, time:1000});
+                            setTimeout("closeWindow()", 1000);
+                        }else{
+                            layer.msg(data.msg, {icon:5, time:1000});
+                        }
+                        */
+                    }
+                };
+                $(form).ajaxSubmit(options);
+            }
+        });
+    });
+
+    function closeWindow(){
+        var index = parent.layer.getFrameIndex(window.name);
+        window.parent.location.reload(index);
+    }
+</script>
 
 </body>
 </html>
