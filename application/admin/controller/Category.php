@@ -15,8 +15,14 @@ use think\Request;
 class Category extends Base {
     public function index()
     {
+        $list = $this->category->select();
 
-        return $this->fetch('index');
+        $list = infinite($list, 0, 0, 'p_id');
+
+        return $this->fetch('index', [
+            'list'  => $list,
+            'count' => count($list)
+        ]);
     }
 
     /**

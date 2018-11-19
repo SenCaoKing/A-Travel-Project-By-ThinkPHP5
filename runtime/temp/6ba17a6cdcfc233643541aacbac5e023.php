@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:69:"E:\WWW\mytest\github\lvyou/application/admin\view\category\index.html";i:1542631257;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\base.html";i:1541769015;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:69:"E:\WWW\mytest\github\lvyou/application/admin\view\category\index.html";i:1542636233;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\base.html";i:1541769015;}*/ ?>
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
@@ -108,29 +108,27 @@
 <div class="page-container">
     <div class="cl pd-5 bg-1 bk-gray mt-20">
         <span class="l"><a href="javascript:;" onclick="open_page('添加分类','<?php echo url('category/categoryAdd'); ?>', '','400')" class="btn btn-primary radius"><i class="Hui-iconfont"></i> 添加分类</a></span>
-        <span class="r mt-5">共有记录：<strong></strong> 条</span>
+        <span class="r mt-5">共有记录：<strong><?php echo $count?></strong> 条</span>
     </div>
     <table class="table table-border table-bordered table-bg mt-10">
         <thead>
         <tr class="text-c">
             <th width="40">ID</th>
-            <th>地区名称</th>
-            <th>地区拼音</th>
-            <th>地区背景</th>
-            <th>地区描述</th>
+            <th>分类名称</th>
+            <th>分类icon</th>
             <th width="100">操作</th>
         </tr>
         </thead>
         <tbody>
-
-        <tr class="text-c top_" >
-            <td></td>
+        <?php foreach($list as $v){?>
+        <tr class="text-c top_<?php echo $v['p_id']?>">
+            <td><?php echo $v['id']?></td>
             <td class="operate" style="text-align: left; padding-left: 10px;">
+                <?php if(empty($v['deep'])){ echo empty($v['p_id']) ? '<a onclick="hide1(this, '.$v['id'].')"><span><i class="Hui-iconfont">&#xe6a1;</i></span></a>' : '- ';echo $v['name'];} else echo str_repeat('&nbsp;', $v['deep']*4).'-'.$v['name'];?>
             </td>
+            <td></td>
 
-        <td></td>
-
-        <td><img src="" style="width: 80px;"></td>
+            <td><img src="" style="width: 80px;"></td>
 
             <td></td>
             <td>
@@ -138,6 +136,8 @@
                 <input class="btn btn-danger radius size-MINI ml-5" type="button" onclick="del(this, <?php echo $v['id']?>)" value="删除">
             </td>
         </tr>
+        <?php } ?>
+
 
         <tr class="text-l"><td colspan="20">没有找到匹配的记录</td></tr>
 
