@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:69:"E:\WWW\mytest\github\lvyou/application/admin\view\system\areaAdd.html";i:1542200839;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\main.html";i:1540682192;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:69:"E:\WWW\mytest\github\lvyou/application/admin\view\system\areaAdd.html";i:1542201075;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\main.html";i:1540682192;}*/ ?>
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
@@ -114,52 +114,33 @@
         imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
     }
 
-    function imgReviewMore(file, img){
-        var docObj = document.getElementById(file);
-        var files = docObj.files;
-        for(var i=0; i<files.length; i++){
-            var url = window.URL.createObjectURL(files[i]);
-            $('#'+img).append('<img class="avatar size-XL pt-10 pr-10" src="'+ url +'" alt="">');
-        }
-    }
-
     $(function(){
         $('.skin-minimal input').iCheck({
             checkboxClass: 'icheckbox-blue',
             radioClass: 'iradio-yellow',
             increaseArea: '20%'
         });
+
         $("#form").validate({
             rules:{
-                title:{required:true,},
-                desc:{required:true,},
-                logo:{required:true,},
-                banner:{required:true,},
-                current_price:{required:true, number:true},
-                address:{required:true,},
-                notice:{required:true,},
-                area_id:{required:true, number:true},
-                area_name:{required:true,},
+                area:{required:true},
+                pinyin:{required:true}
             },
             submitHandler:function(form){
                 var options = {
                     success: function(data){
-                        console.log(data);
-                        /*
                         if(data.code == 0){
                             layer.msg(data.msg, {icon:1, time:1000});
                             setTimeout("closeWindow()", 1000);
                         }else{
                             layer.msg(data.msg, {icon:5, time:1000});
                         }
-                        */
                     }
                 };
                 $(form).ajaxSubmit(options);
             }
         });
     });
-
     function closeWindow(){
         var index = parent.layer.getFrameIndex(window.name);
         window.parent.location.reload(index);

@@ -72,4 +72,14 @@ class System extends Base {
         return view('areaAdd', ['parent'=>$parent]);
     }
 
+    /**
+     * 编辑地区
+     * @return \think\response\Json|\think\response\View
+     */
+    public function areaSave(){
+
+
+        return view('areaSave');
+    }
+
 }
