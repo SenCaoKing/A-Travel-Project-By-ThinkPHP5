@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:70:"E:\WWW\mytest\github\lvyou/application/admin\view\system\areaList.html";i:1542204959;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\base.html";i:1541769015;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:70:"E:\WWW\mytest\github\lvyou/application/admin\view\system\areaList.html";i:1542629202;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\base.html";i:1541769015;}*/ ?>
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
@@ -132,7 +132,7 @@
         <tr class="text-c top_<?php echo $v['pid']?>" <?php if(!isset($params['search_name']) && $v['pid'] != 0) echo 'hidden';?>>
             <td><?php echo $v['id']?></td>
             <td class="operate" style="text-align: left; padding-left: 10px;">
-                <?php if(empty($v['deep'])){ echo empty($v['pid']) ? '<a onclick="display1(this, '.$v['id'].')"><span><i class="Hui-iconfont"></i></span></a>' : '- ';echo $v['area'];} else echo str_repeat('&nbsp',$v['deep']*4).'-'.$v['area'];?>
+                <?php if(empty($v['deep'])){ echo empty($v['pid']) ? '<a onclick="display1(this, '.$v['id'].')"><span><i class="Hui-iconfont">&#xe600;</i></span></a>' : '- ';echo $v['area'];} else echo str_repeat('&nbsp',$v['deep']*4).'-'.$v['area'];?>
             </td>
 
         <td><?php echo $v['pinyin']?></td>
@@ -163,6 +163,21 @@
 <script type="text/javascript" src="/public/static/h-ui/js/H-ui.js"></script>
 <script type="text/javascript" src="/public/static/h-ui/js/main.js"></script>
 <script type="text/javascript" src="/public/static/h-ui.admin/js/H-ui.admin.page.js"></script>
+
+<script type="text/javascript">
+
+    function display1(obj, id){
+        $(".top_"+id).show();
+        $(obj).parents("tr").find(".operate").prepend('<a onclick="hide1(this, '+id+')"><span><i class="Hui-iconfont">&#xe6a1;</i></span></a>');
+        $(obj).remove();
+    }
+
+    function hide1(obj, id){
+        $(".top_"+id).hide();
+        $(obj).parents("tr").find(".operate").prepend('<a onclick="display1(this, '+id+')"><span><i class="Hui-iconfont">&#xe600;</i></span></a>');
+        $(obj).remove();
+    }
+</script>
 
 </body>
 </html>
