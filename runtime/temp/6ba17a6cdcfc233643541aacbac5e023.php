@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:69:"E:\WWW\mytest\github\lvyou/application/admin\view\category\index.html";i:1542636459;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\base.html";i:1541769015;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:69:"E:\WWW\mytest\github\lvyou/application/admin\view\category\index.html";i:1542638975;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\base.html";i:1541769015;}*/ ?>
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
@@ -156,7 +156,7 @@
         layer.confirm('确认要删除吗？', function(index){
             $.ajax({
                 type: 'post',
-                url: "<?php echo url('system/areaDel')?>",
+                url: "<?php echo url('category/del')?>",
                 data: {"id":id},
                 success:function(data){
                     if(data.code == 0){

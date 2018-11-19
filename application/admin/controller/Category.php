@@ -55,4 +55,20 @@ class Category extends Base {
             'row'          => $row
         ]);
     }
+
+    public function del()
+    {
+        if(Request::instance()->isPost()){
+            try{
+                $row = $this->category->where(['p_id' => $this->params['id']])->find();
+                if($row){
+                    throw new \Exception('请先删除子分类');
+                }
+                $this->category->where(['id' => $this->params['id']])->delete();
+            }catch(\Exception $e){
+                return _error($e->getMessage(), $e->getCode());
+            }
+            return _success();
+        }
+    }
 }

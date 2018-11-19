@@ -43,7 +43,7 @@
         layer.confirm('确认要删除吗？', function(index){
             $.ajax({
                 type: 'post',
-                url: "<?php echo url('system/areaDel')?>",
+                url: "<?php echo url('category/del')?>",
                 data: {"id":id},
                 success:function(data){
                     if(data.code == 0){
