@@ -77,9 +77,27 @@ class System extends Base {
      * @return \think\response\Json|\think\response\View
      */
     public function areaSave(){
-
-
-        return view('areaSave');
+        if(IS_POST){
+            try{
+                $file[] = Request::instance()->file('logo');
+                if(!empty($file[0])){
+                    $urls = \app\server\Alioss::get_instance()->upload_file($file);
+                    $this->params['logo'] = $urls[0];
+                }
+                // 场景验证
+                $validate = $this->validate($this->params, 'Area.save');
+                if(true !== $validate){
+                    throw new \LogicException($validate, 1000);
+                }
+                $this->area->update($this->params);
+            }catch(\Exception $e){
+                return _error($e->getMessage(), $e->getCode());
+            }
+            return _success();
+        }
+        $info = $this->area->where(['id'=>$this->params['id']])->find();
+        $parent = $this->area->where(['pid'=>0])->select(); // 获取顶级栏目的数据
+        return view('areaSave', ['info'=>$info, 'parent'=>$parent]);
     }
 
 }

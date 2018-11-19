@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:70:"E:\WWW\mytest\github\lvyou/application/admin\view\system\areaSave.html";i:1542626094;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\main.html";i:1540682192;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:70:"E:\WWW\mytest\github\lvyou/application/admin\view\system\areaSave.html";i:1542628375;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\main.html";i:1540682192;}*/ ?>
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
@@ -36,20 +36,21 @@
 <body>
 
 <article class="page-container">
-    <form class="form form-horizontal" id="form" method="post" action="">
+    <form class="form form-horizontal" id="form-admin-role-save" method="post" action="">
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>地区名称：</label>
             <div class="formControls col-xs-8 col-sm-10">
-                <input type="text" class="input-text" value="" placeholder="请输入地区名称" id="area" name="area">
+                <input type="text" class="input-text" value="<?php echo $info['area']?>" placeholder="请输入地区名称" id="area" name="area">
             </div>
         </div>
 
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>地区拼音：</label>
             <div class="formControls col-xs-8 col-sm-10">
-                <input class="input-text" type="text" value="" placeholder="请输入地区拼音" id="pinyin" name="pinyin">
+                <input class="input-text" type="text" value="<?php echo $info['pinyin']?>" placeholder="请输入地区拼音" id="pinyin" name="pinyin">
             </div>
         </div>
+
 
 
         <div class="row cl">
@@ -63,6 +64,14 @@
         </div>
 
 
+        <?php if($info['logo']){?>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">原图（690*260）：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <img class="" src="<?php echo $info['logo']; ?>" alt="">
+            </div>
+        </div>
+        <?php } ?>
 
 
         <div class="row cl">
@@ -71,7 +80,7 @@
                 <select class="select" name="pid" size="1">
                     <option value="0">顶级地区</option>
                     <?php foreach($parent as $v){?>
-                    <option value="<?php echo $v['id']?>"><?php echo $v['area']?></option>
+                    <option value="<?php echo $v['id']?>" <?php echo $v['id'] == $info['pid'] ? 'selected' : ''?>><?php echo $v['area']?></option>
                     <?php } ?>
                 </select>
             </span></div>
@@ -80,12 +89,13 @@
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>地区描述：</label>
             <div class="formControls col-xs-8 col-sm-10">
-                <input type="text" class="input-text" value="" placeholder="请输入地区描述" id="desc" name="desc">
+                <input type="text" class="input-text" value="<?php echo $info['desc']?>" placeholder="请输入地区描述" id="desc" name="desc">
             </div>
         </div>
 
         <div class="row cl">
             <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <input type="hidden" value="<?php echo $info['id']?>" name="id">
                 <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
             </div>
         </div>
@@ -105,7 +115,6 @@
 <script type="text/javascript" src="/public/static/h-ui.admin/js/H-ui.admin.page.js"></script>
 
 <script type="text/javascript">
-
     function imgReviewOne(file, img){
         var docObj = document.getElementById(file);
         var imgObjPreview = document.getElementById("preview");
@@ -121,10 +130,9 @@
             increaseArea: '20%'
         });
 
-        $("#form").validate({
+        $("#form-admin-role-save").validate({
             rules:{
-                area:{required:true},
-                pinyin:{required:true}
+                area:{required:true}, pinyin:{required:true}
             },
             submitHandler:function(form){
                 var options = {
@@ -141,6 +149,7 @@
             }
         });
     });
+
     function closeWindow(){
         var index = parent.layer.getFrameIndex(window.name);
         window.parent.location.reload(index);
