@@ -38,14 +38,21 @@ class Category extends Base {
                     $urls = \app\server\Alioss::get_instance()->upload_file($file);
                     $this->params['icon'] = $urls[0];
                 }
-
-                $this->category->insert($this->params);
+                if($this->params['id']){
+                    $this->category->update($this->params);
+                }else{
+                    $this->category->insert($this->params);
+                }
             }catch(\Exception $e){
                 return _error($e->getMessage(), $e->getCode());
             }
             return _success();
         }
-
-        return $this->fetch('category_add');
+        $top_category = $this->category->where(['p_id' => 0])->select();
+        $row = $this->category->where(['id' => $this->params['id']])->find();
+        return $this->fetch('category_add', [
+            'top_category' => $top_category,
+            'row'          => $row
+        ]);
     }
 }

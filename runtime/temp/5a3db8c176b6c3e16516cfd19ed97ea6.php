@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:76:"E:\WWW\mytest\github\lvyou/application/admin\view\category\category_add.html";i:1542633072;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\main.html";i:1540682192;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:76:"E:\WWW\mytest\github\lvyou/application/admin\view\category\category_add.html";i:1542638263;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\main.html";i:1540682192;}*/ ?>
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
@@ -40,7 +40,7 @@
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分类名称：</label>
             <div class="formControls col-xs-8 col-sm-10">
-                <input type="text" class="input-text" value="" placeholder="请输入分类名称" id="name" name="name">
+                <input type="text" class="input-text" value="<?php echo $row['name']?>" placeholder="请输入分类名称" id="name" name="name">
             </div>
         </div>
         <div class="row cl">
@@ -48,9 +48,9 @@
             <div class="formControls col-xs-8 col-sm-10"><span class="select-box">
                 <select class="select" name="p_id" size="1">
                     <option value="0">顶级分类</option>
-
-
-
+                    <?php foreach($top_category as $v){?>
+                    <option <?php echo $v['id'] == $row['p_id'] ? 'selected' : ''?> value="<?php echo $v['id']?>"><?php echo $v['name']?></option>
+                    <?php } ?>
                 </select>
             </span></div>
         </div>
@@ -59,11 +59,11 @@
             <label class="form-label col-xs-4 col-sm-2">栏目分类：</label>
             <div class="formControls col-xs-8 col-sm-10 skin-minimal">
                 <div class="radio-box">
-                    <input type="radio" id="sex-2" value="1" name="type">
+                    <input type="radio" id="sex-2" value="1" <?php echo empty($row) || $row['type'] == 1 ? 'checked' : ''?> name="type">
                     <label for="sex-2">主题</label>
                 </div>
                 <div class="radio-box">
-                    <input type="radio" id="sex-3" value="2" name="type">
+                    <input type="radio" id="sex-3" value="2" <?php echo $row['type'] == 2 ? 'checked' : ''?> name="type">
                     <label for="sex-3">人数</label>
                 </div>
             </div>
@@ -78,10 +78,23 @@
                 <img class="" id="preview" src="" alt="">
             </div>
         </div>
+        <?php if($row['icon']){?>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">原Icon：</label>
+            <div class="formControls col-xs-8 col-sm-10">
+                <div style="margin-bottom: 20px;">
+                    <img src="<?php echo $row['icon']?>">
+                </div>
+            </div>
+        </div>
+        <?php } ?>
+
+
 
 
         <div class="row cl">
             <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <input type="hidden" name="id" value="<?php echo $row['id']?>">
                 <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
             </div>
         </div>

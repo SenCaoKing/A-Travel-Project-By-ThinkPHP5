@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:69:"E:\WWW\mytest\github\lvyou/application/admin\view\category\index.html";i:1542636233;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\base.html";i:1541769015;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:69:"E:\WWW\mytest\github\lvyou/application/admin\view\category\index.html";i:1542636459;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\base.html";i:1541769015;}*/ ?>
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
@@ -126,21 +126,15 @@
             <td class="operate" style="text-align: left; padding-left: 10px;">
                 <?php if(empty($v['deep'])){ echo empty($v['p_id']) ? '<a onclick="hide1(this, '.$v['id'].')"><span><i class="Hui-iconfont">&#xe6a1;</i></span></a>' : '- ';echo $v['name'];} else echo str_repeat('&nbsp;', $v['deep']*4).'-'.$v['name'];?>
             </td>
-            <td></td>
-
-            <td><img src="" style="width: 80px;"></td>
-
-            <td></td>
+            <td><img src="<?php echo $v['icon']?>"></td>
             <td>
-                <input class="btn btn-success radius size-MINI" type="button" onclick="open_page('地区编辑','<?php echo url('system/areaSave', ['id' => $v['id']])?>', '', '400')" value="编辑">
+                <input class="btn btn-success radius size-MINI" type="button" onclick="open_page('分类编辑','<?php echo url('category/categoryAdd', ['id' => $v['id']])?>', '', '400')" value="编辑">
                 <input class="btn btn-danger radius size-MINI ml-5" type="button" onclick="del(this, <?php echo $v['id']?>)" value="删除">
             </td>
         </tr>
-        <?php } ?>
-
-
+        <?php } if(empty($list)){?>
         <tr class="text-l"><td colspan="20">没有找到匹配的记录</td></tr>
-
+        <?php } ?>
         </tbody>
     </table>
 </div>
