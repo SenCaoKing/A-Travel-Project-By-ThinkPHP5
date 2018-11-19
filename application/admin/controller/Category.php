@@ -23,7 +23,22 @@ class Category extends Base {
      * @return mixed|\think\response\Json
      * 添加修改分类
      */
-    public function categoryAdd(){
+    public function categoryAdd()
+    {
+        if(Request::instance()->isPost()){
+            try{
+                $file = Request::instance()->file('icon');
+                if(!empty($file)){
+                    $urls = \app\server\Alioss::get_instance()->upload_file($file);
+                    $this->params['icon'] = $urls[0];
+                }
+
+                $this->category->insert($this->params);
+            }catch(\Exception $e){
+                return _error($e->getMessage(), $e->getCode());
+            }
+            return _success();
+        }
 
         return $this->fetch('category_add');
     }
