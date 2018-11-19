@@ -100,4 +100,14 @@ class System extends Base {
         return view('areaSave', ['info'=>$info, 'parent'=>$parent]);
     }
 
+    public function areaDel(){
+        if(IS_POST){
+            try{
+                $this->area->delete($this->params['id']);
+            }catch(\Exception $e){
+                return _error($e->getMessage(), $e->getCode());
+            }
+            return _success();
+        }
+    }
 }

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:70:"E:\WWW\mytest\github\lvyou/application/admin\view\system\areaList.html";i:1542629202;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\base.html";i:1541769015;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:70:"E:\WWW\mytest\github\lvyou/application/admin\view\system\areaList.html";i:1542629906;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\base.html";i:1541769015;}*/ ?>
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
@@ -142,7 +142,7 @@
             <td><?php echo $v['desc'] ? $v['desc'] : '--';?></td>
             <td>
                 <input class="btn btn-success radius size-MINI" type="button" onclick="open_page('地区编辑','<?php echo url('system/areaSave', ['id' => $v['id']])?>', '', '400')" value="编辑">
-                <input class="btn btn-danger radius size-MINI ml-5" type="button" onclick="" value="删除">
+                <input class="btn btn-danger radius size-MINI ml-5" type="button" onclick="del(this, <?php echo $v['id']?>)" value="删除">
             </td>
         </tr>
         <?php } if(empty($list)){?>
@@ -165,6 +165,23 @@
 <script type="text/javascript" src="/public/static/h-ui.admin/js/H-ui.admin.page.js"></script>
 
 <script type="text/javascript">
+    function del(obj, id){
+        layer.confirm('确认要删除吗？', function(index){
+            $.ajax({
+                type: 'post',
+                url: "<?php echo url('system/areaDel')?>",
+                data: {"id":id},
+                success:function(data){
+                    if(data.code == 0){
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除！', {icon:1, time:1000});
+                    }else{
+                        layer.msg(data.msg, {icon:5, time:1000});
+                    }
+                }
+            });
+        });
+    }
 
     function display1(obj, id){
         $(".top_"+id).show();
