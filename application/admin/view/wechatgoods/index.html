@@ -1,0 +1,82 @@
+﻿{extend name="public/base" /}
+{block name="main"}
+<div class="page-container">
+    <form action="<?php echo url('featuredgoods/index')?>" method="get">
+        <div class="text-c">
+            上传时间：
+            <input type="text" name="start_time" value="" onfocus="WdatePicker()" id="datemin" class="input-text Wdate" style="width: 120px;" />
+            至
+            <input type="text" name="end_time" value="" onfocus="WdatePicker()" id="datemax" class="input-text Wdate" style="width: 120px;" />
+            <input type="text" class="input-text" style="width: 250px;" placeholder="输入商品名称" name="search_name" value="">
+            <button type="submit" class="btn btn-success radius"><i class="Hui-iconfont">&#xe665;</i>搜索</button>
+        </div>
+    </form>
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <span class="l"><a href="javascript:;" onclick="open_page('添加商品', '<?php echo url('wechatgoods/goods')?>', '1000')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>添加商品</a> </span>
+
+        <span class="l ml-10"><a href="javascript:;" onclick="open_page('添加线路商品', '<?php echo url('wechatgoods/linegoods')?>', '1000')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>添加线路商品</a></span>
+        <span class="r mt-5">共有记录：<strong></strong> 条</span>
+    </div>
+    <table class="table table-border table-bordered table-bg mt-10">
+        <thead>
+        <tr class="text-c">
+            <th width="40">ID</th>
+            <th>商品名称</th>
+            <th>Logo</th>
+            <th>产品类型</th>
+            <th>所属商家</th>
+            <th>所属分类</th>
+            <th>规格数量</th>
+            <th>详细地址</th>
+            <th>上传时间</th>
+            <th width="280">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr class="text-c">
+            <td></td>
+            <td></td>
+            <td><img class="avatar size-L" src="" /></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <input class="btn btn-success radius size-MINI" type="button" onclick="open_page('商品详情', '<?php echo url('wechatgoods/detail', ['id' => $v['id']])?>', '950')" value="查看">
+                <input class="btn btn-success radius size-MINI" type="button" onclick="open_page('规格', '<?php echo url('wechatgoods/spe', ['id' => $v['id']])?>', '950', '600')" value="规格">
+
+                <input class="btn btn-success radius size-MINI" type="button" onclick="open_page('修改商品', '<?php echo url('wechatgoods/goods', ['id' => $v['id']])?>', '950')" value="修改">
+
+                <input class="btn btn-success radius size-MINI" type="button" onclick="open_page('修改线路商品', '<?php echo url('wechatgoods/linegoods', ['id' => $v['id']])?>', '950')" value="修改">
+
+
+
+                <input class="btn btn-success radius size-MINI ml-5" type="button" onclick="" value="通过">
+
+                <input class="btn btn-danger radius size-MINI ml-5" type="button" onclick="" value="禁用">
+
+
+
+                <input class="btn btn-success radius size-MINI ml-5" type="button" onclick="" value="推荐">
+
+                <input class="btn btn-success radius size-MINI ml-5" type="button" onclick="" value="取消">
+
+                <input class="btn btn-danger radius size-MINI ml-5" type="button" onclick="del(this, <?php echo $v['id']?>)" value="删除">
+            </td>
+        </tr>
+
+        <tr class="text-l"><td colspan="20">没有找到匹配的记录</td></tr>
+
+        </tbody>
+    </table>
+    <span class="r pages mt-10"></span>
+</div>
+{/block}
+{block name="js"}
+<script type="text/javascript">
+    
+</script>
+{/block}
