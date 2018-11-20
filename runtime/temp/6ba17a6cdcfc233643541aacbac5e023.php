@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:69:"E:\WWW\mytest\github\lvyou/application/admin\view\category\index.html";i:1542638975;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\base.html";i:1541769015;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:69:"E:\WWW\mytest\github\lvyou/application/admin\view\category\index.html";i:1542714825;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\base.html";i:1541769015;}*/ ?>
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
@@ -159,12 +159,16 @@
                 url: "<?php echo url('category/del')?>",
                 data: {"id":id},
                 success:function(data){
+
+                    console.log(data);
+
                     if(data.code == 0){
                         $(obj).parents("tr").remove();
                         layer.msg('已删除！', {icon:1, time:1000});
                     }else{
                         layer.msg(data.msg, {icon:5, time:1000});
                     }
+                    
                 }
             });
         });

@@ -62,7 +62,7 @@ class Category extends Base {
             try{
                 $row = $this->category->where(['p_id' => $this->params['id']])->find();
                 if($row){
-                    throw new \Exception('请先删除子分类');
+                    return _error('请先删除子分类');
                 }
                 $this->category->where(['id' => $this->params['id']])->delete();
             }catch(\Exception $e){
