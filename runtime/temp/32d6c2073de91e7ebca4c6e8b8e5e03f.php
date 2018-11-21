@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:72:"E:\WWW\mytest\github\lvyou/application/admin\view\wechatgoods\index.html";i:1542717446;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\base.html";i:1541769015;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:72:"E:\WWW\mytest\github\lvyou/application/admin\view\wechatgoods\index.html";i:1542805889;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\base.html";i:1541769015;}*/ ?>
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
@@ -155,16 +155,29 @@
 
                 <input class="btn btn-success radius size-MINI" type="button" onclick="open_page('修改商品', '<?php echo url('wechatgoods/goods', ['id' => $v['id']])?>', '950')" value="修改">
 
-                <input class="btn btn-success radius size-MINI" type="button" onclick="open_page('修改商品', '<?php echo url('wechatgoods/linegoods', ['id' => $v['id']])?>', '950')" value="修改">
+                <input class="btn btn-success radius size-MINI" type="button" onclick="open_page('修改线路商品', '<?php echo url('wechatgoods/linegoods', ['id' => $v['id']])?>', '950')" value="修改">
 
 
+
+                <input class="btn btn-success radius size-MINI ml-5" type="button" onclick="" value="通过">
+
+                <input class="btn btn-danger radius size-MINI ml-5" type="button" onclick="" value="禁用">
+
+
+
+                <input class="btn btn-success radius size-MINI ml-5" type="button" onclick="" value="推荐">
+
+                <input class="btn btn-success radius size-MINI ml-5" type="button" onclick="" value="取消">
 
                 <input class="btn btn-danger radius size-MINI ml-5" type="button" onclick="del(this, <?php echo $v['id']?>)" value="删除">
-
             </td>
         </tr>
-            </tbody>
-        </table>
+
+        <tr class="text-l"><td colspan="20">没有找到匹配的记录</td></tr>
+
+        </tbody>
+    </table>
+    <span class="r pages mt-10"></span>
 </div>
 
     </div>
@@ -180,46 +193,7 @@
 <script type="text/javascript" src="/public/static/h-ui.admin/js/H-ui.admin.page.js"></script>
 
 <script type="text/javascript">
-    /* 管理员-停用 */
-    function admin_stop(obj, id){
-        layer.confirm('确认要停用吗？', function(index){
-            // 此处请求后台程序，下方是成功后的前台处理......
-            $(obj).parents("tr").find(".td-manage").prepend('<a onclick="admin_start(this, id)" href="javascript:;" title="启用" style="text-decoration: none"><i class="Hui-iconfont"></i></a>');
-            $(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">已禁用</span>');
-            $(obj).remove();
-            layer.msg('已停用！', {icon:5, time:1000});
-        });
-    }
 
-    /* 管理员-启用 */
-    function admin_start(obj, id){
-        layer.confirm('确认要启用吗？', function(index){
-            // 此处请求后台程序，下方是成功后的前台处理......
-
-            $(obj).parents("tr").find(".td-manage").prepend('<a onclick="admin_stop(this, id)" href="javascript:;" title="停用" style="text-decoration: none;"><i class="Hui-iconfont"></i></a>');
-            $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
-            $(obj).remove();
-            layer.msg('已启用！', {icon:6, time:1000});
-        });
-    }
-
-    function del(obj, id){
-        layer.confirm('确认要删除吗？', function(index){
-            $.ajax({
-                type: 'post',
-                url: "<?php echo url('admin/del')?>",
-                data: {"id": id},
-                success: function(data){
-                    if(data.code == 0){
-                        $(obj).parents("tr").remove();
-                        layer.msg('已删除！', {icon:1, time:1000});
-                    }else{
-                        layer.msg(data.msg, {icon:5, time:1000});
-                    }
-                }
-            });
-        });
-    }
 </script>
 
 </body>

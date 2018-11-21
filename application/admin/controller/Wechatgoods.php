@@ -27,5 +27,15 @@ class Wechatgoods extends Base {
         return $this->fetch('index');
     }
 
+    /**
+     * @return mixed|\think\response\Json
+     * 添加|修改小程序产品
+     */
+    public function goods()
+    {
+
+        return $this->fetch('goods');
+    }
+
 
 }
