@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:72:"E:\WWW\mytest\github\lvyou/application/admin\view\wechatgoods\goods.html";i:1542805954;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\main.html";i:1540682192;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:72:"E:\WWW\mytest\github\lvyou/application/admin\view\wechatgoods\goods.html";i:1542807553;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\main.html";i:1540682192;}*/ ?>
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
@@ -208,7 +208,7 @@
     <div class="row cl">
         <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>产品须知：</label>
         <div class="formControls col-xs-8 col-sm-9">
-            <textarea name="notice" id="notice" class="textarea" placeholder="请输入商品描述" onkeyup="$.Huitextarealength(this, 500)"></textarea>
+            <textarea  class="xheditor {tools:'full',height:'250',cleanPaste:2,html5Upload:false,upLinkUrl:'<?php echo url('upload/xheditorUpload')?>',upImgUrl:'<?php echo url('upload/xheditorUpload')?>'}" id="notice" name="notice" style="width: 100%; height: 150px;"></textarea>
         </div>
     </div>
 
@@ -309,6 +309,9 @@
 <script type="text/javascript" src="/public/static/h-ui/js/main.js"></script>
 <script type="text/javascript" src="/public/static/h-ui.admin/js/H-ui.admin.page.js"></script>
 
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=lxbkBRnEscglDAsh3cRLM9qtvcHCjPMY"></script>
+<script type="text/javascript" src="/public/static/h-ui/js/xheditor-1.2.2.min.js"></script>
+<script type="text/javascript" src="/public/static/h-ui/js/zh-cn.js"></script>
 <script type="text/javascript">
 </script>
 
