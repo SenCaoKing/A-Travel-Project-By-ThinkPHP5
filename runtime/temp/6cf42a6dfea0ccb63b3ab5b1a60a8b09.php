@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:72:"E:\WWW\mytest\github\lvyou/application/admin\view\wechatgoods\goods.html";i:1542807553;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\main.html";i:1540682192;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:72:"E:\WWW\mytest\github\lvyou/application/admin\view\wechatgoods\goods.html";i:1542888043;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\main.html";i:1540682192;}*/ ?>
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
@@ -88,9 +88,9 @@
             <span class="select-box" style="width: 150px;">
                 <select class="select" name="city_name" size="1" id="city_name">
                     <option>选择地区</option>
-
-                    <option value=""></option>
-
+                    <?php foreach($area as $key => $value){?>
+                    <option value="<?php echo $value['area']?>"><?php echo $value['area']?></option>
+                    <?php } ?>
                 </select>
             </span>
             <span><button class="btn btn-primary radius" onclick="">创建地址坐标</button></span>
@@ -111,8 +111,10 @@
         <div class="formControls col-xs-8 col-sm-9">
             <span class="select-box" style="width: 150px;">
                 <select class="select" name="category_id" size="1" onchange="">
+                    <?php foreach($category as $v){?>
+                    <option value="<?php echo $v['id']?>" ><?php echo $v['name']?></option>
+                    <?php } ?>
 
-                    <option value=""></option>
 
                 </select>
             </span>
