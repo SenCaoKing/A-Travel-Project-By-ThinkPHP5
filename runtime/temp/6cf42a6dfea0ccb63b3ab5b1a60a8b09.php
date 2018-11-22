@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:72:"E:\WWW\mytest\github\lvyou/application/admin\view\wechatgoods\goods.html";i:1542888043;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\main.html";i:1540682192;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:72:"E:\WWW\mytest\github\lvyou/application/admin\view\wechatgoods\goods.html";i:1542888810;s:66:"E:\WWW\mytest\github\lvyou\application\admin\view\public\main.html";i:1540682192;}*/ ?>
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
@@ -114,8 +114,6 @@
                     <?php foreach($category as $v){?>
                     <option value="<?php echo $v['id']?>" ><?php echo $v['name']?></option>
                     <?php } ?>
-
-
                 </select>
             </span>
         </div>
@@ -124,13 +122,13 @@
     <div class="row cl">
         <label class="form-label col-xs-4 col-sm-3">选择子类：</label>
         <div class="formControls col-xs-8 col-sm-9">
-
-            <span class="select-box" id="" style="">
-
-                <label style="padding-left: 5px;"><input type="checkbox"></label>
-
+            <?php foreach($category as $k => $v){?>
+            <span class="select-box" id="child_<?php echo $v['id']?>" >
+                <?php foreach($v['child'] as $k1 => $v1){?>
+                <label style="padding-left: 5px;"><input type="checkbox" value="<?php echo $v1['id']?>" name="category_ids[]" id="user-Character-0"><?php echo $v1['name']?></label>
+                <?php } ?>
             </span>
-
+            <?php } ?>
         </div>
     </div>
 
@@ -225,12 +223,12 @@
     <div class="row cl">
         <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>选择商家：</label>
         <div class="formControls col-xs-8 col-sm-9">
-
+            <?php foreach($merchant_group as $v){?>
             <div class="radio-box" style="padding-left: 0;">
-                <input type="radio" id="sex-2" value="" name="aid">
-                <label for="sex-2"></label>
+                <input type="radio" id="sex-2" value="<?php echo $v['id']?>" name="aid">
+                <label for="sex-2"><?php echo $v['username']?></label>
             </div>
-
+            <?php } ?>
         </div>
     </div>
 

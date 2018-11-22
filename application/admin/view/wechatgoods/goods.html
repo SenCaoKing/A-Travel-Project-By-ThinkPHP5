@@ -88,7 +88,7 @@
         <label class="form-label col-xs-4 col-sm-3">选择子类：</label>
         <div class="formControls col-xs-8 col-sm-9">
             <?php foreach($category as $k => $v){?>
-            <span class="select-box" id="child_<?php echo $v['id']?>" >;">
+            <span class="select-box" id="child_<?php echo $v['id']?>" >
                 <?php foreach($v['child'] as $k1 => $v1){?>
                 <label style="padding-left: 5px;"><input type="checkbox" value="<?php echo $v1['id']?>" name="category_ids[]" id="user-Character-0"><?php echo $v1['name']?></label>
                 <?php } ?>
