@@ -1,0 +1,72 @@
+﻿{extend name="public/base" /}
+{block name="main"}
+<div class="page-container">
+    <form action="<?php echo url('user/guideList'); ?>" method="get">
+        <div class="text-c">
+            <input type="text" class="input-text" style="width: 250px;" placeholder="输入手机号码" name="search_name" value="<?php echo isset($params['search_name']) ? $params['search_name'] : '' ?>">
+            <select class="select-box" style="width: 80px; padding: 5px 5px;" size="1" name="status">
+                <option value="" selected>状态</option>
+                <option value="0" <?php if(isset($params['status']) && $params['status'] == 0) echo 'selected'; ?>>已注册</option>
+                <option value="1" <?php if(isset($params['status']) && $params['status'] == 1) echo 'selected'; ?>>待审核</option>
+                <option value="2" <?php if(isset($params['status']) && $params['status'] == 1) echo 'selected'; ?>>已通过</option>
+                <option value="3" <?php if(isset($params['status']) && $params['status'] == 1) echo 'selected'; ?>>未通过</option>
+                <option value="4" <?php if(isset($params['status']) && $params['status'] == 1) echo 'selected'; ?>>已禁用</option>
+            </select>
+            <button type="submit" class="btn btn-success radius"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+        </div>
+    </form>
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <span class="r mt-5">共有记录：<strong><?php echo $list->total(); ?></strong> 条</span>
+    </div>
+    <table class="table table-border table-bordered table-bg mt-10">
+        <thead>
+        <tr class="text-c">
+            <th width="40">ID</th>
+            <th>手机</th>
+            <th>头像</th>
+            <th>星级</th>
+            <th>余额</th>
+            <th>成长值</th>
+            <th>登录时间</th>
+            <th>IP</th>
+            <th>坐标</th>
+            <th>平台号</th>
+            <th>设备号</th>
+            <th>版本号</th>
+            <th>状态</th>
+            <th width="120">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach($list as $v){?>
+        <tr class="text-c">
+            <td><?php echo $v['uid'];?></td>
+            <td><?php echo $v['mobile'];?></td>
+            <td><img class="avatar size-L" src="<?php echo $v['portrait'];?>" alt=""></td>
+            <td><?php echo $v['lv'];?></td>
+            <td><?php echo $v['account'];?></td>
+            <td><?php echo $v['growth'];?></td>
+            <td><?php echo $v['login_time'];?></td>
+            <td><?php echo $v['login_ip'];?></td>
+            <td><?php echo $v['coordinate'];?></td>
+            <td><?php echo $v['platform'];?></td>
+            <td><?php echo $v['equ'];?></td>
+            <td><?php echo $v['version'];?></td>
+            <td id="status1_<?php echo $v['uid'];?>"><?php switch($v['status']){
+            case 0: echo '已注册';break;
+            case 1: echo '待审核';break;
+            case 2: echo '已通过';break;
+            case 3: echo '未通过';break;
+            case 4: echo '已禁用';break;
+            }?></td>
+            <td></td>
+        </tr>
+        <?php }?>
+        </tbody>
+    </table>
+</div>
+{/block}
+{block name="js"}
+<script type="text/javascript">
+</script>
+{/block}
