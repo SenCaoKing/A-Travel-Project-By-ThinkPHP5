@@ -115,10 +115,17 @@ class Wechatgoods extends Base {
             }
             return _success();
         }
-
-
-
-
+        // 查询当前数据
+        if(!empty($this->params['id'])){
+            $row = $this->wechat_goods->where(['id' => $this->params['id']])->find();
+            $category_ids = $this->goods_category->field("category_id")->where(['goods_id' => $this->params['id']])->select();
+            $category_ids_arr = [];
+            $specification_arr = [];
+            foreach($category_ids as $v){
+                $category_ids_arr[] = $v['category_id'];
+            }
+            $row['specification'] = $this->goods_specification->where(['goods_id' => $this->params['id']])->select();
+        }
         $area = $this->area->where(['pid' => 0])->select(); // 查询地区
         $category = $this->category->where(['p_id' => 0, 'type' => 1])->select(); // 选择——分类
         foreach($category as $key => $value){
@@ -131,13 +138,12 @@ class Wechatgoods extends Base {
             ->field("b.id, b.username")
             ->where(['a.group_id' => 2])
             ->select();
-
-        // dump($merchat_group);
-
         return $this->fetch('goods', [
             'area'           => $area,
             'category'       => $category,
             'merchant_group' => $merchat_group ? $merchat_group : [],
+            'row'            => $row,
+            'category_ids'   => $category_ids_arr ? $category_ids_arr : [],
         ]);
     }
 

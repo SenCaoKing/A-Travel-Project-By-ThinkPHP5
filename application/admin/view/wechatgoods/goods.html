@@ -5,7 +5,7 @@
     <div class="row cl">
         <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>商品名称：</label>
         <div class="formControls col-xs-8 col-sm-9">
-            <input type="text" class="input-text" value="" placeholder="请输入商品名称" id="title" name="title">
+            <input type="text" class="input-text" value="{$row.title}" placeholder="请输入商品名称" id="title" name="title">
         </div>
     </div>
     <div class="row cl">
@@ -18,14 +18,14 @@
         </div>
     </div>
 
-
+    <?php if($row['logo']){?>
     <div class="row cl">
         <label class="form-label col-xs-4 col-sm-3">原图（690*260）：</label>
         <div class="formControls col-xs-8 col-sm-9">
-            <img class="" src="" alt="" width="200px">
+            <img class="" src="{$row.logo}" alt="" width="200px">
         </div>
     </div>
-
+    <?php } ?>
 
 
     <div class="row cl">
