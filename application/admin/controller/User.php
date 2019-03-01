@@ -55,6 +55,22 @@ class User extends Base{
         }
     }
 
+    public function guideReset(){
+        if(IS_POST){
+            try{
+                $info = $this->guide->where(['mobile'=>$this->params['mobile']])->find();
+                if ($info) {
+                    throw new \LogicException('手机号已存在', 1000);
+                }
+                $this->guide->update(['mobile'=>$this->params['mobile'], 'uid'=>$this->params['uid']]);
+            } catch (\Exception $e) {
+                return _error($e->getMessage(), $e->getCode());
+            }
+            return _success();
+        }
+        $uid = $this->params['uid'];
+        return view('guideReset', ['uid'=>$uid]);
+    }
 
     public function userlist(){
         return view('userList');
