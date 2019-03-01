@@ -1,0 +1,129 @@
+﻿{extend name="public/main" /}
+{block name="main"}
+<div class="cl pd-20" style="background-color: #5bacb6;">
+    <img class="avatar size-XL l" src="<?php echo $info['portrait']?>">
+    <dl style="margin-left: 80px; color: #fff;">
+        <dt>
+            <span class="f-18"><?php echo $info['name']?></span>
+            <span class="pl-10 f-12">手机：<?php echo $info['mobile']?></span>
+            <span class="pl-10 f-12">登录时间：<?php echo $info['login_time'] ? date('Y-m-d H:i:s', $info['login_time']) : '-'?></span>
+            <span class="pl-10 f-12">登录IP<?php echo $info['login_ip'] ?: '-'?></span>
+            <span class="pl-10 f-12">状态<?php switch($info['status']){
+            case 0: echo '已注册';break;
+            case 1: echo '待审核';break;
+            case 2: echo '已通过';break;
+            case 3: echo '未通过';break;
+            case 4: echo '已禁用';break;
+            }?></span>
+            <span class="pl-10 f-12">坐标：<?php echo $info['coordinate'] ?: '-'?></span>
+        </dt>
+        <dd class="pt-10 f-12" style="margin-left: 0;">
+            <span class="pl-10 f-12">标签：<?php echo $info['label']?></span>
+        </dd>
+    </dl>
+</div>
+<div class="pt-10">
+    <table class="table">
+        <tbody>
+        <tr>
+            <th class="text-r" style="width: 90px;">身份证：</th>
+            <td><?php echo $info['id_num'] ?: '-'?></td>
+        </tr>
+        <tr>
+            <th class="text-r" style="width: 90px;">导游证：</th>
+            <td><?php echo $info['guide_card'] ?: '-'?></td>
+        </tr>
+        <tr>
+            <th class="text-r" style="width: 90px;">开户行：</th>
+            <td><?php echo $info['bank_name'] ?: '-'?></td>
+        </tr>
+        <tr>
+            <th class="text-r" style="width: 90px;">银行卡号：</th>
+            <td><?php echo $info['bank_num'] ?: '-'?></td>
+        </tr>
+        <tr>
+            <th class="text-r" style="width: 90px;">身份证正面：</th>
+            <td><img class="avatar size-XL l" src="<?php echo $info['positive_id_path']?>" /></td>
+        </tr>
+        <tr>
+            <th class="text-r" style="width: 90px;">身份证背面：</th>
+            <td><img class="avatar size-XL l" src="<?php echo $info['negative_id_path']?>" /></td>
+        </tr>
+        <tr>
+            <th class="text-r" style="width: 90px;">手持证件照：</th>
+            <td><img class="avatar size-XL l" src="<?php echo $info['hand_id_path']?>" /></td>
+        </tr>
+        <tr>
+            <th class="text-r" style="width: 90px;">导游证件照：</th>
+            <td><img class="avatar size-XL l" src="<?php echo $info['guide_card_path']?>" /></td>
+        </tr>
+        <tr>
+            <th class="text-r" style="width: 90px;">驾驶证号：</th>
+            <td><?php echo $info['drivers'] ?: '-'?></td>
+        </tr>
+        <tr>
+            <th class="text-r" style="width: 90px;">行驶证号：</th>
+            <td><?php echo $info['travel'] ?: '-'?></td>
+        </tr>
+        <tr>
+            <th class="text-r" style="width: 90px;">车辆号：</th>
+            <td><?php echo $info['frame'] ?: '-'?></td>
+        </tr>
+        <tr>
+            <th class="text-r" style="width: 90px;">车辆类型：</th>
+            <td><?php echo $info['car_type'] ?: '-'?></td>
+        </tr>
+        <tr>
+            <th class="text-r" style="width: 90px;">车载数量：</th>
+            <td><?php echo $info['manned'] ?: '-'?></td>
+        </tr>
+        <tr>
+            <th class="text-r" style="width: 90px;">车辆牌照：</th>
+            <td><?php echo $info['plate'] ?: '-'?></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="audit pt-10 pl-30" <?php if($info['status'] != 1) echo 'hidden'?>>
+<input class="btn btn-primary radius" type="button" onclick="status(this, 2)" value="&nbsp;&nbsp;通过&nbsp;&nbsp;">
+<input class="btn btn-danger radius ml-5" type="button" onclick="status(this, 3)" value="&nbsp;&nbsp;拒绝&nbsp;&nbsp;">
+</div>
+{/block}
+
+<!-- 请在下方写此页面业务相关的脚本 -->
+{block name="js"}
+<script type="text/javascript">
+    $(function () {
+        $('img').zoomify();
+    });
+
+    function status(obj, status){
+        var uid = "<?php echo $info['uid']?>";
+        var msg;
+        var msg1;
+        if(status === 2){
+            msg = '确认审核通过吗？';
+            msg1 = '已通过';
+        } else if (status === 3){
+            msg = '确认审核拒绝吗？';
+            msg1 = '已拒绝';
+        }
+        layer.confirm(msg, function(){
+            $.ajax({
+                type:'post',
+                url:"<?php echo url('user/guideAudit')?>",
+                data:{"uid":uid, "status":status},
+                success:function(data){
+                    if(data.code == 0){
+                        layer.msg(msg1, {icon: 1, time: 1000});
+                        $('.audit').hide();
+                    }else{
+                        layer.msg(data.msg, {icon: 5, time: 1000});
+                    }
+                }
+            });
+        });
+    }
+</script>
+{/block}
+<!-- /请在下方写此页面业务相关的脚本 -->

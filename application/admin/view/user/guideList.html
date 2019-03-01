@@ -59,14 +59,62 @@
             case 3: echo '未通过';break;
             case 4: echo '已禁用';break;
             }?></td>
-            <td></td>
+            <td>
+                <input class="btn btn-success radius size-MINI" type="button" onclick="open_page('导游详情', '<?php echo url('user/guideshow', array('uid' => $v['uid']));?>', '', '')" value="详情">
+                <input class="btn btn-primary radius size-MINI ml-5" type="button" onclick="open_page('更换手机', '<?php echo url('user/guidereset', array('uid' => $v['uid']));?>', '400', '200')" value="重置">
+                <?php if(in_array($v['status'], [2, 4])){ ?>
+                <input class="btn btn-danger radius size-MINI ml-5" type="button" id="status_<?php echo $v['uid']?>" data="<?php echo $v['status']?>" onclick="status(this, '<?php echo $v['uid']?>')" value="<?php echo $v['status'] == 2 ? '禁用' : '启用'?>">
+                <?php } ?>
+            </td>
         </tr>
+        <?php } if(empty($list)){?>
+        <tr class="text-l"><td colspan="20">没有找到匹配的记录</td></tr>
         <?php }?>
         </tbody>
     </table>
+    <span class="r pages mt-10"><?php echo !empty($list) ? $list->render() : '';?></span>
 </div>
 {/block}
+<!-- 请在上方写此页面body相关内容 -->
+
+<!-- 请在下方写此页面业务相关的脚本 -->
 {block name="js"}
 <script type="text/javascript">
+    function status(obj, uid){
+        var msg;
+        var msg1;
+        var msg2;
+        var msg3;
+        var status = $('#status_'+uid).attr('data');
+        if(status == 2){
+            msg = '确认禁用吗？';
+            msg1 = '已禁用';
+            msg2 = '启用';
+            msg3 = '已禁用';
+        } else if (status == 4){
+            msg = '确认启用吗？';
+            msg1 = '已启用';
+            msg2 = '禁用';
+            msg3 = '已通过';
+        }
+        layer.confirm(msg, function(){
+            $.ajax({
+                type:'post',
+                url:"<?php echo url('user/guideStatus')?>",
+                data:{"uid":uid, "status":status},
+                success:function(data){
+                    if(data.code == 0){
+                        layer.msg(msg1, {icon: 1, time: 1000});
+                        $('#status_'+uid).val(msg2);
+                        $('#status1_'+uid).html(msg3);
+                        $('#status_'+uid).attr('data', data.data);
+                    }else{
+                        layer.msg(data.msg, {icon: 5, time: 1000});
+                    }
+                }
+            });
+        });
+    }
 </script>
 {/block}
+<!-- /请在下方写此页面业务相关的脚本 -->
