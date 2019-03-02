@@ -1,13 +1,13 @@
 ﻿{extend name="public/base" /}
 {block name="main"}
 <div class="page-container">
-    <form action="<?php echo url('goods/goodsList')?>" method="get">
+    <form action="<?php echo url('goods/goodsGuideList')?>" method="get">
         <div class="text-c">
             上传时间：
             <input type="text" name="start_time" value="<?php echo isset($params['start_time']) ? $params['start_time'] : ''?>" onfocus="WdatePicker()" id="datemin" class="input-text Wdate" style="width:120px;">
             至
             <input type="text" name="end_time" value="<?php echo isset($params['end_time']) ? $params['end_time'] : ''?>" onfocus="WdatePicker()" id="datemax" class="input-text Wdate" style="width:120px;">
-            <input type="text" class="input-text" style="width:250px" placeholder="输入商品名称" name="search_name" value="<?php echo isset($params['search_name']) ? $params['search_name'] : ''?>">
+            <input type="text" class="input-text" style="width:250px" placeholder="输入用户编号、商品名称" name="search_name" value="<?php echo isset($params['search_name']) ? $params['search_name'] : ''?>">
             <select class="select-box" style="width: 80px;padding: 5px 5px;" size="1" name="status">
                 <option value="" selected="">状态</option>
                 <option value="1"  <?php if(isset($params['status']) && $params['status'] == 1) echo 'selected';?>>待审核</option>
@@ -18,13 +18,13 @@
         </div>
     </form>
     <div class="cl pd-5 bg-1 bk-gray mt-20">
-        <span class="l"><a href="javascript:;" onclick="open_page('添加商品','<?php echo url('goods/goodsAdd'); ?>','1000')" class="btn btn-primary radius"><i class="Hui-iconfont"></i> 添加商品</a></span>
         <span class="r mt-5">共有记录：<strong><?php echo $list->total();?></strong> 条</span>
     </div>
     <table class="table table-border table-bordered table-bg mt-10">
         <thead>
         <tr class="text-c">
             <th width="40">ID</th>
+            <th width="80">用户编号</th>
             <th>商品名称</th>
             <th>Logo</th>
             <th>商品描述</th>
@@ -42,8 +42,9 @@
         <?php foreach($list as $v){?>
         <tr class="text-c">
             <td><?php echo $v['id']?></td>
+            <td><u style="cursor: pointer;" class="text-primary" onclick="layer_show('用户详情', '<?php echo url('user/guideshow', array('uid' => $v['uid']))?>')"><?php echo $v['mobile']?></u></td>
             <td><?php echo $v['title']?></td>
-            <td><img class="avatar size-L" src="<?php echo $v['logo']?>"></td>
+            <td><img class="avatar size-L" src="<?php echo $v['logo']?>" /></td>
             <td><?php echo $v['desc']?></td>
             <td><?php echo $v['current_price']?></td>
             <td><?php echo $v['address']?></td>
@@ -57,7 +58,7 @@
             }?></td>
             <td><?php echo $v['create_time'] ? date('Y-m-d H:i:s', $v['create_time']) : '-'?></td>
             <td>
-                <input class="btn btn-success radius size-MINI" type="button" onclick="open_page('商品详情','<?php echo url('goods/goodsshow', array('id'=>$v['id'], 'action'=>'goodslist'))?>')" value="详情">
+                <input class="btn btn-success radius size-MINI" type="button" onclick="layer_show('商品详情','<?php echo url('goods/goodsshow', array('id'=>$v['id'], 'action'=>'goodsguidelist'))?>')" value="详情">
             </td>
         </tr>
         <?php } if(empty($list->items())){?>

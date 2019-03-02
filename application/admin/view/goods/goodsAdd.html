@@ -101,28 +101,25 @@
         });
         $("#form").validate({
             rules:{
-                title:{required:true,},
-                desc:{required:true,},
-                logo:{required:true,},
-                banner:{required:true,},
+                title:{required:true},
+                desc:{required:true},
+                logo:{required:true},
+                banner:{required:true},
                 current_price:{required:true, number:true},
-                address:{required:true,},
-                notice:{required:true,},
+                address:{required:true},
+                notice:{required:true},
                 area_id:{required:true, number:true},
-                area_name:{required:true,},
+                area_name:{required:true},
             },
             submitHandler:function(form){
                 var options = {
                     success: function(data){
-                        console.log(data);
-                        /*
                         if(data.code == 0){
                             layer.msg(data.msg, {icon:1, time:1000});
                             setTimeout("closeWindow()", 1000);
                         }else{
                             layer.msg(data.msg, {icon:5, time:1000});
                         }
-                        */
                     }
                 };
                 $(form).ajaxSubmit(options);

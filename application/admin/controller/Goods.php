@@ -32,6 +32,23 @@ class Goods extends Base{
     }
 
     /**
+     * 导游商品列表
+     * @return \think\response\View
+     */
+    public function goodsGuideList(){
+        $search = search($this->params, ['b.mobile', 'title'], ['create_time'], ['status']);
+        $where = $search['where'] ?: '';
+        $list = $this->goods
+            ->alias('a')
+            ->field('a.*, b.mobile')
+            ->join([['guide b', 'a.uid = b.uid', 'left']])
+            ->where($where)
+            ->order('a.id desc')
+            ->paginate(10, false, ['query'=>$this->params, 'var_page'=>'page']);
+        return view('goodsGuideList', ['list'=>$list, 'params'=>$search['params']]);
+    }
+
+    /**
      * 商品详情
      * @return \think\response\View
      */
@@ -84,7 +101,7 @@ class Goods extends Base{
                 if(!$id){
                     throw new \LengthException('添加商品失败', 1000);
                 }
-                $file1 = \Request::instance()->file('banner');
+                $file1 = request()->file('banner');
                 $urls1 = Alioss::get_instance()->upload_file($file1);
                 $data = [];
                 foreach($urls1 as $k => $v){
@@ -93,7 +110,7 @@ class Goods extends Base{
                     $data[$k]['type'] = Param::PRODUCT_PUBLIC;
                 }
                 $this->goods_banner->insertAll($data);
-            }catch(\Exception $e){
+            } catch (\Exception $e){
                 return _error($e->getMessage(), $e->getCode());
             }
             return _success();
