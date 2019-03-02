@@ -1,1 +1,109 @@
-﻿
+﻿{extend name="public/base" /}
+{block name="main"}
+<div class="page-container">
+    <form action="<?php echo url('user/userList'); ?>" method="get">
+        <div class="text-c">
+            <input type="text" class="input-text" style="width: 250px;" placeholder="输入手机号码" name="search_name" value="<?php echo isset($params['search_name']) ? $params['search_name'] : '' ?>">
+            <select class="select-box" style="width: 80px; padding: 5px 5px;" size="1" name="status">
+                <option value="" selected>状态</option>
+                <option value="1" <?php if(isset($params['status']) && $params['status'] == 1) echo 'selected'; ?>>已注册</option>
+                <option value="2" <?php if(isset($params['status']) && $params['status'] == 2) echo 'selected'; ?>>已标签</option>
+                <option value="-1" <?php if(isset($params['status']) && $params['status'] == -1) echo 'selected'; ?>>已禁用</option>
+            </select>
+            <button type="submit" class="btn btn-success radius"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+        </div>
+    </form>
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <span class="r mt-5">共有记录：<strong><?php echo $list->total(); ?></strong> 条</span>
+    </div>
+    <table class="table table-border table-bordered table-bg mt-10">
+        <thead>
+        <tr class="text-c">
+            <th width="40">ID</th>
+            <th>昵称</th>
+            <th>性别</th>
+            <th>手机</th>
+            <th>所在地区</th>
+            <th>登录时间</th>
+            <th>IP</th>
+            <th>平台号</th>
+            <th>设备号</th>
+            <th>版本号</th>
+            <th>状态</th>
+            <th width="100">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach($list as $v){?>
+        <tr class="text-c">
+            <td><?php echo $v['uid'];?></td>
+            <td><?php echo $v['nickname'];?></td>
+            <td><?php echo $v['sex'] == 1 ? '男' : '女';?></td>
+            <td><?php echo $v['mobile'];?></td>
+            <td><?php echo $v['area'];?></td>
+            <td><?php echo $v['last_login_time'] ? date('Y-m-d H:i:s', $v['last_login_time']) : '-';?></td>
+            <td><?php echo $v['last_login_ip'];?></td>
+            <td><?php echo $v['platform'];?></td>
+            <td><?php echo $v['equ'];?></td>
+            <td><?php echo $v['version'];?></td>
+            <td id="status1_<?php echo $v['uid'];?>"><?php switch($v['status']){
+            case 1: echo '已注册';break;
+            case 2: echo '已标签';break;
+            case -1: echo '已禁用';break;
+            }?></td>
+            <td>
+                <input class="btn btn-success radius size-MINI" type="button" onclick="layer_show('用户详情', '<?php echo url('user/usershow', array('uid' => $v['uid']));?>', '', '')" value="详情">
+                <input class="btn btn-danger radius size-MINI ml-5" type="button" id="status_<?php echo $v['uid']?>" data="<?php echo $v['status']?>" onclick="status(this, '<?php echo $v['uid']?>')" value="<?php echo $v['status'] < 0 ? '启用' : '禁用';?>">
+            </td>
+        </tr>
+        <?php } if(empty($list)){?>
+        <tr class="text-l"><td colspan="20">没有找到匹配的记录</td></tr>
+        <?php }?>
+        </tbody>
+    </table>
+    <span class="r pages mt-10"><?php echo !empty($list) ? $list->render() : '';?></span>
+</div>
+{/block}
+<!-- 请在上方写此页面body相关内容 -->
+
+<!-- 请在下方写此页面业务相关的脚本 -->
+{block name="js"}
+<script type="text/javascript">
+    function status(obj, uid){
+        var msg;
+        var msg1;
+        var msg2;
+        var msg3;
+        var status = $('#status_'+uid).attr('data');
+        if(status > 0){
+            msg = '确认禁用吗？';
+            msg1 = '已禁用';
+            msg2 = '启用';
+            msg3 = '已禁用';
+        } else {
+            msg = '确认启用吗？';
+            msg1 = '已启用';
+            msg2 = '禁用';
+            msg3 = '已标签';
+        }
+        layer.confirm(msg, function(){
+            $.ajax({
+                type:'post',
+                url:"<?php echo url('user/userStatus')?>",
+                data:{"uid":uid, "status":status},
+                success:function(data){
+                    if(data.code == 0){
+                        layer.msg(msg1, {icon: 1, time: 1000});
+                        $('#status_'+uid).val(msg2);
+                        $('#status1_'+uid).html(msg3);
+                        $('#status_'+uid).attr('data', data.data);
+                    }else{
+                        layer.msg(data.msg, {icon: 5, time: 1000});
+                    }
+                }
+            });
+        });
+    }
+</script>
+{/block}
+<!-- /请在下方写此页面业务相关的脚本 -->

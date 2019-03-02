@@ -73,6 +73,24 @@ class User extends Base{
     }
 
     public function userlist(){
-        return view('userList');
+        $search = search($this->params, ['mobile'], [], ['status']);
+        $where = $search['where'] ?: '';
+        $list = $this->user
+            ->where($where)
+            ->order('uid desc')
+            ->paginate(10, false, ['query'=>$this->params, 'var_page'=>'page']);
+        return view('userList', ['list'=>$list, 'params'=>$search['params']]);
+    }
+
+    public function userStatus(){
+        if(IS_AJAX){
+            try{
+                $status = $this->params['status'] < 0 ? 2 : -1;
+                $this->user->update(['status'=>$status, 'uid'=>$this->params['uid']]);
+            } catch (\Exception $e){
+                return _error($e->getMessage(), $e->getCode());
+            }
+            return _success($status);
+        }
     }
 }

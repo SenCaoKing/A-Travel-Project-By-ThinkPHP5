@@ -8,9 +8,9 @@
                 <option value="" selected>状态</option>
                 <option value="0" <?php if(isset($params['status']) && $params['status'] == 0) echo 'selected'; ?>>已注册</option>
                 <option value="1" <?php if(isset($params['status']) && $params['status'] == 1) echo 'selected'; ?>>待审核</option>
-                <option value="2" <?php if(isset($params['status']) && $params['status'] == 1) echo 'selected'; ?>>已通过</option>
-                <option value="3" <?php if(isset($params['status']) && $params['status'] == 1) echo 'selected'; ?>>未通过</option>
-                <option value="4" <?php if(isset($params['status']) && $params['status'] == 1) echo 'selected'; ?>>已禁用</option>
+                <option value="2" <?php if(isset($params['status']) && $params['status'] == 2) echo 'selected'; ?>>已通过</option>
+                <option value="3" <?php if(isset($params['status']) && $params['status'] == 3) echo 'selected'; ?>>未通过</option>
+                <option value="4" <?php if(isset($params['status']) && $params['status'] == 4) echo 'selected'; ?>>已禁用</option>
             </select>
             <button type="submit" class="btn btn-success radius"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
         </div>
