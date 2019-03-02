@@ -60,8 +60,9 @@
                 <input class="btn btn-success radius size-MINI" type="button" onclick="open_page('商品详情','<?php echo url('goods/goodsshow', array('id'=>$v['id'], 'action'=>'goodslist'))?>')" value="详情">
             </td>
         </tr>
+        <?php } if(empty($list->items())){?>
+        <tr class="text-l"><td colspan="20">没有找到匹配的记录</td></tr>
         <?php } ?>
-
         </tbody>
     </table>
     <span class="r pages mt-10"><?php echo !empty($list->items()) ? $list->render() : '';?></span>

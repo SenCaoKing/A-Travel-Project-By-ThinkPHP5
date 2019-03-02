@@ -36,13 +36,15 @@ class Goods extends Base{
      * @return \think\response\View
      */
     public function goodsShow(){
-        switch($this->params['action']){
+        switch ($this->params['action']) {
             case 'goodslist': $this->model = $this->goods_share;break;
             case 'goodsguidelist': $this->model = $this->goods;break;
         }
         $info = $this->model->find($this->params['id']);
         $info['action'] = $this->params['action'];
-
+        $info['images'] = $this->goods_images
+            ->where(['goods_id'=>$this->params['id'], 'type'=>Param::PRODUCT_PUBLIC])
+            ->column('images');
         return view('goodsShow', ['info' => $info]);
     }
 
