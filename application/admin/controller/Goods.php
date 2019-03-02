@@ -38,6 +38,7 @@ class Goods extends Base{
     public function goodsGuideList(){
         $search = search($this->params, ['b.mobile', 'title'], ['create_time'], ['status']);
         $where = $search['where'] ?: '';
+
         $list = $this->goods
             ->alias('a')
             ->field('a.*, b.mobile')
@@ -46,6 +47,24 @@ class Goods extends Base{
             ->order('a.id desc')
             ->paginate(10, false, ['query'=>$this->params, 'var_page'=>'page']);
         return view('goodsGuideList', ['list'=>$list, 'params'=>$search['params']]);
+    }
+
+    /**
+     * 发布商品列表
+     * @return \think\response\View
+     */
+    public function goodsReleaseList(){
+        $search = search($this->params, ['b.title', 'c.mobile'], ['a.create_time', 'a.deadline'], ['a.status']);
+        $where = $search['where'] ?: '';
+
+        $list = $this->goods_release
+            ->alias('a')
+            ->field('a.*, b.title, c.mobile')
+            ->join([['goods b', 'a.goods_id = b.id', 'left'], ['guide c', 'a.uid = c.uid', 'left']])
+            ->where($where)
+            ->order('a.id desc')
+            ->paginate(10, false, ['query'=>$this->params, 'var_page'=>'page']);
+        return view('goodsReleaseList', ['list'=>$list, 'params'=>$search['params']]);
     }
 
     /**

@@ -1,0 +1,105 @@
+﻿{extend name="public/base" /}
+{block name="main"}
+<div class="page-container">
+    <form action="<?php echo url('goods/goodsReleaseList')?>" method="get">
+        <div class="text-c">
+            上传时间：
+            <input type="text" name="start_time" value="<?php echo isset($params['start_time']) ? $params['start_time'] : ''?>" onfocus="WdatePicker()" id="datemin" class="input-text Wdate" style="width:120px;">
+            至
+            <input type="text" name="end_time" value="<?php echo isset($params['end_time']) ? $params['end_time'] : ''?>" onfocus="WdatePicker()" id="datemax" class="input-text Wdate" style="width:120px;">
+            报名截止：
+            <input type="text" name="start_time1" value="<?php echo isset($params['start_time1']) ? $params['start_time1'] : ''?>" onfocus="WdatePicker()" id="datemin" class="input-text Wdate" style="width:120px;">
+            至
+            <input type="text" name="end_time1" value="<?php echo isset($params['end_time1']) ? $params['end_time1'] : ''?>" onfocus="WdatePicker()" id="datemax" class="input-text Wdate" style="width:120px;">
+            <input type="text" class="input-text" style="width:250px" placeholder="输入用户编号、商品名称" name="search_name" value="<?php echo isset($params['search_name']) ? $params['search_name'] : ''?>">
+            <select class="select-box" style="width: 80px;padding: 5px 5px;" size="1" name="status">
+                <option value="" selected="">状态</option>
+                <option value="1"  <?php if(isset($params['status']) && $params['status'] == 1) echo 'selected';?>>报名中</option>
+                <option value="2" <?php if(isset($params['status']) && $params['status'] == 2) echo 'selected';?>>已截止</option>
+                <option value="3" <?php if(isset($params['status']) && $params['status'] == 3) echo 'selected';?>>已下架</option>
+            </select>
+            <button type="submit" class="btn btn-success radius"><i class="Hui-iconfont"></i> 搜索</button>
+        </div>
+    </form>
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <span class="r mt-5">共有记录：<strong><?php echo $list->total();?></strong> 条</span>
+    </div>
+    <table class="table table-border table-bordered table-bg mt-10">
+        <thead>
+        <tr class="text-c">
+            <th width="40">ID</th>
+            <th>用户编号</th>
+            <th>商品名称</th>
+            <th>类型</th>
+            <th>集合地址</th>
+            <th>最低人数</th>
+            <th>最高人数</th>
+            <th>当前人数</th>
+            <th>说明</th>
+            <th>报名截止时间</th>
+            <th>开始时间</th>
+            <th>结束时间</th>
+            <th>发布时间</th>
+            <th>状态</th>
+            <th width="60">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach($list as $v){?>
+        <tr class="text-c">
+            <td><?php echo $v['id']?></td>
+            <td><u style="cursor: pointer;" class="text-primary" onclick="layer_show('用户详情', '<?php echo url('user/guideshow', array('uid' => $v['uid']))?>')"><?php echo $v['mobile']?></u></td>
+            <td><u style="cursor: pointer;" class="text-primary" onclick="layer_show('商品详情', '<?php echo url('goods/goodsshow', array('id' => $v['goods_id'], 'action' => 'goodsguidelist'))?>')"><?php echo $v['title']?></u></td>
+            <td><?php echo $v['type'] == 1 ? '组团' : '上新'?></td>
+            <td><?php echo $v['address']?></td>
+            <td><?php echo $v['min_people']?></td>
+            <td><?php echo $v['max_people']?></td>
+            <td><?php echo $v['current_people']?></td>
+            <td><?php echo $v['desc']?></td>
+            <td><?php echo $v['deadline']?></td>
+            <td><?php echo $v['start_time']?></td>
+            <td><?php echo $v['end_time']?></td>
+            <td><?php echo $v['create_time'] ? date('Y-m-d H:i:s', $v['create_time']) : '-'?></td>
+            <td id="status_<?php echo $v['id']?>"><?php switch($v['status']){
+            case 1: echo '报名中';break;
+            case 2: echo '已截止';break;
+            case 3: echo '已下架';break;
+            }?></td>
+            <td>
+                <input class="btn btn-danger radius size-MINI" type="button" <?php if($v['status'] == 3) echo 'style=display:none;'?> id="status1_<?php echo $v['id']?>" onclick="status(this,'<?php echo $v['id']?>')" value="下架">
+            </td>
+        </tr>
+        <?php } if(empty($list->items())){?>
+        <tr class="text-l"><td colspan="20">没有找到匹配的记录</td></tr>
+        <?php } ?>
+        </tbody>
+    </table>
+    <span class="r pages mt-10"><?php echo !empty($list->items()) ? $list->render() : '';?></span>
+</div>
+{/block}
+<!-- 请在上方写此页面body相关内容 -->
+
+<!-- 请在下方写此页面业务相关的脚本 -->
+{block name="js"}
+<script type="text/javascript">
+    function status(obj, id){
+        layer.confirm('确认下架吗？', function(){
+            $.ajax({
+                type:'post',
+                url:"<?php echo url('goods/goodsStatus');?>",
+                data:{"id":id, "status":3, "action":'goodsreleaselist'},
+                success:function(data){
+                    if(data.code == 0){
+                        layer.msg('已下架', {icon: 1, time: 1000});
+                        $('#status1_'+id).attr('style', 'display:none');
+                        $('#status_'+id).html('已下架');
+                    }else{
+                        layer.msg(data.msg, {icon: 5, time: 1000});
+                    }
+                }
+            });
+        });
+    }
+</script>
+{/block}
+<!-- /请在上方写此页面业务相关的脚本 -->
