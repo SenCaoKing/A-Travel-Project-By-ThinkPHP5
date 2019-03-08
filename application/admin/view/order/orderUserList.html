@@ -1,0 +1,43 @@
+﻿{extend name="public/main" /}
+{block name="main"}
+<div class="page-container">
+    <form action="<?php echo url('order/orderUserList');?>" method="get">
+        <div class="text-c">
+            <input type="text" class="input-text" style="width:250px" placeholder="输入姓名、身份证" name="search_name" value="<?php echo isset($params['search_name']) ? $params['search_name'] : ''?>">
+            <input type="hidden" name="id" value="<?php echo $info['id']?>" />
+            <button type="submit" class="btn btn-success radius"><i class="Hui-iconfont"></i> 搜索</button>
+        </div>
+    </form>
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <span class="r mt-5">成人：<strong><?php echo $info['adult_num']?></strong> </span>
+        <span class="r mt-5 mr-5">儿童：<strong><?php echo $info['child_num']?></strong> </span>
+    </div>
+    <table class="table table-border table-bordered table-bg mt-10">
+        <thead>
+        <tr class="text-c">
+            <th>姓名</th>
+            <th>身份证</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach($list as $v){?>
+        <tr class="text-c">
+            <td><?php echo $v['real_name']?></td>
+            <td><?php echo $v['id_card']?></td>
+        </tr>
+        <?php } if(empty($list)){?>
+        <tr class="text-l"><td colspan="20">没有找到匹配的记录</td></tr>
+        <?php }?>
+        </tbody>
+    </table>
+</div>
+{/block}
+<!-- 请在上方写此页面body相关内容 -->
+
+<!-- 请在下方写此页面业务相关的脚本 -->
+{block name="js"}
+<script type="text/javascript">
+
+</script>
+{/block}
+<!-- /请在上方写此页面业务相关的脚本 -->
