@@ -8,10 +8,18 @@
 namespace app\admin\controller;
 
 class Circle extends Base{
-    public function circleList()
-    {
-        dump(123);
-        return view('circlelist');
+    /**
+     * 列表
+     * @return \think\response\View
+     */
+    public function circleList(){
+        $search = search($this->params, ['title'], [], ['is_hot']);
+        $where  = $search['where'] ?: '';
+        $list   = $this->circle
+            ->where($where)
+            ->order('id desc')
+            ->paginate(10, false, ['query' => $this->params, 'var_page' => 'page']);
+        return view('circleList', ['list' => $list, 'params' => $search['params']]);
     }
 
     /**
