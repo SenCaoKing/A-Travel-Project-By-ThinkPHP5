@@ -1,0 +1,86 @@
+﻿{extend name="public/main" /}
+{block name="main"}
+<article class="page-container">
+    <form action="" method="post" class="form form-horizontal" id="form-admin-role-save">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>圈子名称：</label>
+            <div class="formControls col-xs-8 col-sm-10">
+                <input type="text" class="input-text" value="<?php echo $info['title']?>" placeholder="" id="title" name="title">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>圈子描述：</label>
+            <div class="formControls col-xs-8 col-sm-10">
+                <textarea name="desc" id="desc" class="textarea" placeholder="请输入圈子描述"><?php echo $info['desc']?></textarea>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">话题数：</label>
+            <div class="formControls col-xs-8 col-sm-10">
+                <input type="text" class="input-text" value="<?php echo $info['topic_num']?>" placeholder="请输入话题数，不填默认0" id="topic_num" name="topic_num">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>是否热门：</label>
+            <div class="formControls col-xs-8 col-sm-10">
+                <div class="radio-box">
+                    <input type="radio" id="type_id-1" name="is_hot" value="0" <?php echo $info['is_hot'] == 0 ? 'checked' : ''?>>
+                    <label for="type_id-1">普通</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio" id="type_id-2" name="is_hot" value="1" <?php echo $info['is_hot'] == 1 ? 'checked' : ''?>>
+                    <label for="type_id-2">热门</label>
+                </div>
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <input type="hidden" value="<?php echo $info['id']?>">
+                <input type="submit" class="btn btn-primary" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            </div>
+        </div>
+    </form>
+</article>
+{/block}
+<!-- 请在上方写此页面body相关内容 -->
+
+<!-- 请在下方写此页面业务相关的脚本 -->
+{block name="js"}
+<script type="text/javascript">
+    $(function(){
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-yellow',
+            increaseArea: '20%'
+        });
+
+        $("#form-admin-role-save").validate({
+            rules:{
+                title:{required:true},
+                desc:{required:true},
+                topic_num:{number:true},
+                is_hot:{required:true},
+            },
+            submitHandler:function(form){
+                var options = {
+                    success: function(data){
+                        if(data.code == 0){
+                            layer.msg(data.msg, {icon:1, time:1000});
+                            setInterval("closeWindow()", 1000);
+                        }else{
+                            layer.msg(data.msg, {icon:5, time:1000});
+                        }
+                    }
+                };
+                $(form).ajaxSubmit(options);
+            }
+        });
+    });
+    
+    function closeWindow(){
+        var index = parent.layer.getFrameIndex(window.name);
+        window.parent.location.reload(index);
+    }
+</script>
+{/block}
+<!-- /请在上方写此页面业务相关的脚本 -->

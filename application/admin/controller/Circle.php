@@ -42,4 +42,26 @@ class Circle extends Base{
         }
         return view('circleAdd');
     }
+
+    /**
+     * 编辑圈子
+     * @return \think\response\Json|\think\response\View
+     */
+    public function circleSave(){
+        if(IS_POST){
+            try{
+                // 登录场景验证
+                $validate = $this->validate($this->params, 'Circle.save');
+                if(true !== $validate){
+                    throw new \LogicException($validate, 1000);
+                }
+                $this->circle->update($this->params);
+            } catch (\Exception $e){
+                return _error($e->getMessage(), $e->getCode());
+            }
+            return _success();
+        }
+        $info = $this->circle->where(['id' => $this->params['id']])->find();
+        return view('circleSave', ['info' => $info]);
+    }
 }
