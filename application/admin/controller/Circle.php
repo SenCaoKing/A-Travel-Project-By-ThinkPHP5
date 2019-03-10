@@ -64,4 +64,15 @@ class Circle extends Base{
         $info = $this->circle->where(['id' => $this->params['id']])->find();
         return view('circleSave', ['info' => $info]);
     }
+
+    public function circleDel(){
+        if(IS_POST){
+            try{
+                $this->circle->delete($this->params['id']);
+            } catch (\Exception $e){
+                return _error($e->getMessage(), $e->getCode());
+            }
+            return _success();
+        }
+    }
 }
