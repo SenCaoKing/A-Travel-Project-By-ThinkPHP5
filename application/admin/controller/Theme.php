@@ -89,4 +89,15 @@ class Theme extends Base{
         $theme_label = explode(',', $config['theme_label']);
         return view('themeSave', ['info'=>$info, 'theme_label'=>$theme_label]);
     }
+
+    public function themeDel(){
+        if(IS_POST){
+            try{
+                $this->theme->delete($this->params['id']);
+            } catch (\Exception $e){
+                return _error($e->getMessage(), $e->getCode());
+            }
+            return _success();
+        }
+    }
 }
