@@ -37,7 +37,7 @@
             <td><?php echo $v['is_hot'] == 1 ? '热门' : '普通'?></td>
             <td>
                 <input class="btn btn-success radius size-MINI" type="button" onclick="open_page('编辑圈子','<?php echo url('circle/circleSave', ['id'=>$v['id']])?>','','400')" value="编辑">
-                <input class="btn btn-primary radius size-MINI ml-5" type="button" onclick="open_page('添加话题','<?php echo url('theme/themeList', ['circle_id'=>$v['id']])?>','1000','800')" value="话题">
+                <input class="btn btn-primary radius size-MINI ml-5" type="button" onclick="open_page('添加话题','<?php echo url('theme/themeList', ['circle_id'=>$v['id']])?>','1000','600')" value="话题">
                 <input class="btn btn-danger radius size-MINI ml-5" type="button" onclick="del(this, <?php echo $v['id']?>)" value="删除">
             </td>
         </tr>

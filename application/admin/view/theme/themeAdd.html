@@ -1,0 +1,125 @@
+﻿{extend name="public/main" /}
+{block name="main"}
+<article class="page-container">
+    <form action="" method="post" class="form form-horizontal" id="form">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>话题标题：</label>
+            <div class="formControls col-xs-8 col-sm-10">
+                <input type="text" class="input-text" value="" placeholder="请输入话题标题" id="title" name="title">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>话题内容：</label>
+            <div class="formControls col-xs-8 col-sm-10">
+                <textarea name="content" id="content" class="textarea" placeholder="请输入话题内容"></textarea>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">发帖人：</label>
+            <div class="formControls col-xs-8 col-sm-10">
+                <input type="text" class="input-text" value="Sen" disabled />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">参与人数：</label>
+            <div class="formControls col-xs-8 col-sm-10">
+                <input type="text" class="input-text" value="" placeholder="请输入参与人数，不填默认0" id="join_num" name="join_num">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>话题标签：</label>
+            <div class="formControls col-xs-8 col-sm-10">
+                <dl class="permission-list">
+                    <dt><label><input type="checkbox" value="1" id="user-Character-1">请选择标签</label></dt>
+                    <dd>
+                        <?php foreach($theme_label as $v){?>
+                        <label><input type="checkbox" value="<?php echo $v?>" name="theme_label[]" id="user-Character-1-0-0">
+                        <?php echo $v?></label>
+                        <?php } ?>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>是否热门：</label>
+            <div class="formControls col-xs-8 col-sm-10">
+                <div class="radio-box">
+                    <input type="radio" id="type_id-1" name="is_hot" value="0" checked>
+                    <label for="type_id-1">普通</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio" id="type_id-2" name="is_hot" value="1">
+                    <label for="type_id-2">热门</label>
+                </div>
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <input type="hidden" name="circle_id" value="<?php echo $circle_id?>" />
+                <input type="submit" class="btn btn-primary radius" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            </div>
+        </div>
+    </form>
+</article>
+{/block}
+<!-- 请在上方写此页面body相关内容 -->
+
+<!-- 请在下方写此页面业务相关的脚本 -->
+{block name="js"}
+<script type="text/javascript">
+    $(function(){
+        $(".permission-list dt input:checkbox").click(function(){
+            $(this).closest("dl").find("dd input:checkbox").prop("checked", $(this).prop("checked"));
+        });
+        $(".permission-list2 dd input:checkbox").click(function(){
+            var l = $(this).parent().parent().find("input:checked").length;
+            var l2 = $(this).parents(".permission-list").find(".permission-list2 dd").find("input:checked").length;
+            if($(this).prop("checked")){
+                $(this).closest("dl").find("dt input:checkbox").prop("checked", true);
+                $(this).parents(".permission-list").find("dt").first().find("input:checkbox").prop("checked", true);
+            }
+            else{
+                if(l==0){
+                    $(this).closest("dl").find("dt input:checkbox").prop("checked", false);
+                }
+                if(l2==0){
+                    $(this).parents(".permission-list").find("dt").first().find("input:checkbox").prop("checked", false);
+                }
+            }
+        });
+
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-yellow',
+            increaseArea: '20%'
+        });
+
+        $("#form").validate({
+            rules:{
+                title:{required:true},
+                content:{required:true},
+                join_num:{number:true},
+                is_hot:{required:true},
+            },
+            submitHandler:function(form){
+                var options = {
+                    success: function(data){
+                        if(data.code == 0){
+                            layer.msg(data.msg, {icon:1, time:1000});
+                            setTimeout("closeWindow()", 1000);
+                        }else{
+                            layer.msg(data.msg, {icon:5, time:1000});
+                        }
+                    }
+                };
+                $(form).ajaxSubmit(options);
+            }
+        });
+    });
+    function closeWindow(){
+        var index = parent.layer.getFrameIndex(window.name);
+        window.parent.location.reload(index);
+    }
+</script>
+{/block}
+<!-- /请在上方写此页面业务相关的脚本 -->

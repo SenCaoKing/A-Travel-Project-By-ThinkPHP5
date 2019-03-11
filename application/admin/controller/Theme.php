@@ -29,4 +29,38 @@ class Theme extends Base{
         return view('themeList', ['list' => $list, 'params' => $search['params'], 'circle_id' => $this->params['circle_id']]);
     }
 
+    /**
+     * 添加
+     * @return \think\response\Json|\think\response\View
+     */
+    public function themeAdd(){
+        if(IS_POST){
+            $theme_label = $this->params['theme_label'];
+            unset($this->params['theme_label']);
+            try{
+                // 场景验证
+                $validate = $this->validate($this->params, 'Theme.add');
+                if(true !== $validate){
+                    throw new \LogicException($validate, 1000);
+                }
+                $this->params['create_time'] = time();
+                $this->params['username'] = 'Sen';
+                $id = $this->theme->insertGetId($this->params);
+                if ($id) {
+                    $data = [];
+                    foreach ($theme_label as $k => $v) {
+                        $data[] = ['theme_id'=>$id, 'theme_label'=>$v];
+                    }
+                    $this->theme_label->insertAll($data);
+                }
+            } catch (\Exception $e){
+                return _error($e->getMessage(), $e->getCode());
+            }
+            return _success();
+        }
+        $circle_id = $this->params['circle_id'];
+        $config = get_config();
+        $theme_label = explode(',', $config['theme_label']);
+        return view('themeAdd', ['circle_id'=>$circle_id, 'theme_label'=>$theme_label]);
+    }
 }
