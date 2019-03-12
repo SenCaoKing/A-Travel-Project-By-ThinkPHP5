@@ -4,7 +4,7 @@
 
     <div class="cl pd-5 bg-1 bk-gray">
         <span class="l"><a href="javascript:;" onclick="open_page('添加消息','<?php echo url('message/messageAdd')?>','','400')" class="btn btn-primary radius"><i class="Hui-iconfont"></i> 添加消息</a></span>
-        <span class="r mt-5">共有记录：<strong>1</strong> 条</span>
+        <span class="r mt-5">共有记录：<strong><?php echo $list->total();?></strong> 条</span>
     </div>
     <table class="table table-border table-bordered table-bg mt-10">
         <thead>
@@ -17,17 +17,26 @@
         </tr>
         </thead>
         <tbody>
+        <?php foreach($list as $v){?>
         <tr class="text-c">
-            <td>2</td>
-            <td>第一条系统消息</td>
-            <td>2018-07-20 10:51:23</td>
-            <td>2018-07-20 10:54:43</td>
+            <td><?php echo $v['id']?></td>
+            <td><?php echo $v['content']?></td>
+            <td><?php echo date('Y-m-d H:i:s', $v['create_time'])?></td>
+            <td><?php echo $v['release_time'] ? date('Y-m-d H:i:s', $v['release_time']) : '-'?></td>
             <td>
-                已发布            </td>
+                <?php if($v['status'] == 0){?>
+                <input class="op btn btn-primary radius size-MINI" type="button" onclick="release(this, <?php echo $v['id']?>)" value="发布">
+                <input class="op btn btn-success radius size-MINI ml-5" type="button" onclick="open_page('编辑消息', '<?php echo url('message/messageSave', ['id'=>$v['id']])?>', '', '400')" value="编辑">
+                <input class="op btn btn-danger radius size-MINI ml-5" type="button" onclick="del(this, <?php echo $v['id']?>)" value="删除">
+                <?php } else echo '已发布'; ?>
+            </td>
         </tr>
+        <?php } if(empty($list->items())){?>
+        <tr class="text-l"><td colspan="20">没有找到匹配的记录</td></tr>
+        <?php }?>
         </tbody>
     </table>
-    <span class="r pages mt-10"></span>
+    <span class="r pages mt-10"><?php echo !empty($list->items()) ? $list->render() : '';?></span>
 </div>
 {/block}
 <!-- 请在上方写此页面body相关内容 -->

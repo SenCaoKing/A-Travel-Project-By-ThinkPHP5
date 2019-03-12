@@ -14,8 +14,13 @@ class Message extends Base{
      * @return \think\response\View
      */
     public function messageList(){
-        dump(123);
-        return view('messagelist');
+        $search = search($this->params, [], [], ['type']);
+        $where = $search['where'] ?: '';
+        $list = $this->message
+            ->where($where)
+            ->order('id desc')
+            ->paginate(10, false, ['query'=>$this->params, 'var_page'=>'page']);
+        return view('messageList', ['list'=>$list, 'params'=>$search['params']]);
     }
 
     /**
