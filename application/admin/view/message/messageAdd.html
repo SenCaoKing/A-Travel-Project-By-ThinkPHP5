@@ -1,0 +1,57 @@
+﻿{extend name="public/main" /}
+{block name="main"}
+<article class="page-container">
+    <form action="" method="post" class="form form-horizontal" id="form">
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>系统内容：</label>
+            <div class="formControls col-xs-8 col-sm-10">
+                <textarea name="content" id="content" class="textarea" style="height: 250px;" placeholder="请输入系统内容"></textarea>
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <input type="submit" class="btn btn-primary radius" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            </div>
+        </div>
+    </form>
+</article>
+{/block}
+<!-- 请在上方写此页面body相关内容 -->
+
+<!-- 请在下方写此页面业务相关的脚本 -->
+{block name="js"}
+<script type="text/javascript">
+    $(function(){
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-yellow',
+            increaseArea: '20%'
+        });
+
+        $("#form").validate({
+            rules:{
+                content:{required:true},
+            },
+            submitHandler:function(form){
+                var options = {
+                    success: function(data){
+                        if(data.code == 0){
+                            layer.msg(data.msg, {icon:1, time:1000});
+                            setTimeout("closeWindow()", 1000);
+                        }else{
+                            layer.msg(data.msg, {icon:5, time:1000});
+                        }
+                    }
+                };
+                $(form).ajaxSubmit(options);
+            }
+        });
+    });
+    function closeWindow(){
+        var index = parent.layer.getFrameIndex(window.name);
+        window.parent.location.reload(index);
+    }
+</script>
+{/block}
+<!-- /请在上方写此页面业务相关的脚本 -->
