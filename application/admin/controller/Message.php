@@ -79,5 +79,16 @@ class Message extends Base{
         }
     }
 
-
+    public function messageRelease(){
+        if(IS_POST){
+            try{
+                $this->params['status'] = Param::MESSAGE_RELEASE;
+                $this->params['release_time'] = time();
+                $this->message->update($this->params);
+            } catch (\Exception $e){
+                return _error($e->getMessage(), $e->getCode());
+            }
+            return _success();
+        }
+    }
 }
