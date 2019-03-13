@@ -46,5 +46,27 @@ class Message extends Base{
         return view('messageAdd');
     }
 
+    /**
+     * 编辑
+     * @return \think\response\Json|\think\response\View
+     */
+    public function messageSave(){
+        if(IS_POST){
+            try{
+                // 场景验证
+                $validate = $this->validate($this->params, 'Message.save');
+                if(true !== $validate){
+                    throw new \LogicException($validate, 1000);
+                }
+                $this->message->update($this->params);
+            } catch (\Exception $e){
+                return _error($e->getMessage(), $e->getCode());
+            }
+            return _success();
+        }
+        $info = $this->message->where(['id'=>$this->params['id']])->find();
+        return view('messageSave', ['info'=>$info]);
+    }
+
 
 }
