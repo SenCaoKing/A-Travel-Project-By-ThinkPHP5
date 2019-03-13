@@ -44,7 +44,23 @@
 <!-- 请在下方写此页面业务相关的脚本 -->
 {block name="js"}
 <script type="text/javascript">
-
+    function del(obj, id){
+        layer.confirm('确认要删除吗？', function(index){
+            $.ajax({
+                type:'post',
+                url:"<?php echo url('message/messageDel')?>",
+                data:{"id":id},
+                success:function(data){
+                    if(data.code == 0){
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除！', {icon:1, time:1000});
+                    }else{
+                        layer.msg(data.msg, {icon:5, time:1000});
+                    }
+                }
+            });
+        });
+    }
 </script>
 {/block}
 <!-- /请在上方写此页面业务相关的脚本 -->

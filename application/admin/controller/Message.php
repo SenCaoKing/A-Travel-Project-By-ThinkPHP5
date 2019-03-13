@@ -68,5 +68,16 @@ class Message extends Base{
         return view('messageSave', ['info'=>$info]);
     }
 
+    public function messageDel(){
+        if(IS_POST){
+            try{
+                $this->message->delete($this->params['id']);
+            } catch (\Exception $e){
+                return _error($e->getMessage(), $e->getCode());
+            }
+            return _success();
+        }
+    }
+
 
 }
