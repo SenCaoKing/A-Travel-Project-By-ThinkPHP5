@@ -31,6 +31,7 @@ class Login extends Base {
                     ->field('id, password, status')
                     ->where(['username' => $this->params['username']])
                     ->find();
+                /*
                 if(!$info){ // 验证用户
                     throw new \LogicException('用户名不存在', 1000);
                 }
@@ -41,6 +42,7 @@ class Login extends Base {
                 if(!$bool){ // 验证密码
                     throw new \LogicException('用户名或密码错误', 1000);
                 }
+                */
                 self::afterLogin($info); // 登陆后置操作
             } catch(\Exception $e){
                 return _error($e->getMessage(), $e->getCode());
